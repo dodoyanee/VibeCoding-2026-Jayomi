@@ -3,185 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fashion 404 | Designer Portfolio</title>
+    <title>Fashion Jayomi | Designer Portfolio</title>
     <!-- 구글 폰트 -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* 초기화 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: #000000 !important;
-            color: #ffffff;
-            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 상단 헤더 */
-        header {
-            height: 80px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #1a1a1a;
-            background-color: #000;
-        }
-
-        header .container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: #ff69b4; text-shadow: 2px 2px 0px #00008b; }
-
-        .menu { display: flex; gap: 30px; list-style: none; }
-        .menu a { color: #fff; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 14px; }
-        .menu a:hover { color: #ff69b4; }
-
-        /* 메인 배너 */
-        .main-banner {
-            position: relative;
-            width: 100%;
-            height: 550px;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .banner-wrapper {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* 배너 어둡게 처리하여 글자 강조 */
-        .slide::before {
-            content: '';
-            position: absolute;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.4);
-        }
-
-        .slide-content { position: relative; z-index: 10; text-align: center; }
-        .slide-content h2 { font-size: 4.5rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 20px; text-shadow: 3px 3px 10px rgba(0,0,0,0.8); }
-        
-        .btn-outline {
-            display: inline-block;
-            padding: 15px 40px;
-            border: 2px solid #ff69b4; /* 핫핑크 테두리 */
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .btn-outline:hover { background: #ff69b4; color: #000; }
-
-        .banner-dots {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 20;
-        }
-
-        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .dot.active { background: #ff69b4; width: 35px; border-radius: 10px; }
-
-        /* 이벤트 섹션 */
-        .event-section { padding: 100px 0; }
-        .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 60px; text-align: center; letter-spacing: 2px; }
-
-        .card-wrapper {
-            display: flex;
-            gap: 25px;
-            justify-content: space-between;
-        }
-
-        .card {
-            flex: 1;
-            background: #0a0a0a;
-            border: 1px solid #1f1f1f;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .card:hover { transform: translateY(-15px); border-color: #00008b; box-shadow: 0 10px 30px rgba(0,0,139,0.3); }
-
-        /* 이미지 영역 - 안정적인 새 이미지 주소 적용 */
-        .card-img {
-            height: 320px;
-            background-size: cover;
-            background-position: center;
-            background-color: #1a1a1a; /* 로딩 전 배경색 */
-        }
-
-        .card-content { padding: 30px; }
-        .card-content h3 { color: #ff69b4; margin-bottom: 15px; font-size: 1.4rem; font-weight: 700; }
-        .card-content p { color: #999; font-size: 0.95rem; margin-bottom: 25px; height: 3em; overflow: hidden; }
-        
-        /* View More 버튼 디자인 개선 (가독성 UP) */
-        .btn-more {
-            display: inline-block;
-            color: #4d4dff; /* 밝은 다크블루로 변경하여 가독성 높임 */
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            border: 1px solid #4d4dff;
-            padding: 8px 18px;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .btn-more:hover { background: #4d4dff; color: #fff; }
-
-        /* 푸터 */
-        footer { padding: 80px 0; background: #050505; border-top: 1px solid #111; }
-        .footer-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .footer-logo { margin-bottom: 30px; }
-        .company-info p { font-size: 0.85rem; color: #555; margin-bottom: 8px; }
-
-        /* 반응형 */
-        @media (max-width: 900px) {
-            .card-wrapper { flex-direction: column; }
-            .slide-content h2 { font-size: 2.8rem; }
-            .main-banner { height: 400px; }
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
+    <header class="site-header" id="siteHeader">
         <div class="container">
-            <a href="#" class="logo">FASHION <span>404</span></a>
-            <ul class="menu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Show</a></li>
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#">Community</a></li>
-            </ul>
+            <a href="#" class="logo">FASHION <span>Jy</span></a>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="메뉴 열기">
+                <span></span><span></span><span></span>
+            </button>
+            <nav id="mainNav" aria-label="메인 메뉴">
+                <ul class="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Show</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="mega-menu" id="megaMenu" aria-label="전체 하위 메뉴" aria-hidden="true">
+            <div class="mega-menu-inner container">
+                <div class="mega-menu-spacer" aria-hidden="true"></div>
+                <section class="mega-menu-column" aria-labelledby="submenu-home">
+                    <h2 id="submenu-home">Home</h2>
+                    <a href="#">브랜드 소개</a>
+                    <a href="#">디자이너 스토리</a>
+                    <a href="#">시즌 하이라이트</a>
+                    <a href="#">뉴스레터</a>
+                </section>
+                <section class="mega-menu-column" aria-labelledby="submenu-show">
+                    <h2 id="submenu-show">Show</h2>
+                    <a href="#">런웨이 컬렉션</a>
+                    <a href="#">패션쇼 일정</a>
+                    <a href="#">백스테이지</a>
+                    <a href="#">쇼 다시보기</a>
+                </section>
+                <section class="mega-menu-column" aria-labelledby="submenu-gallery">
+                    <h2 id="submenu-gallery">Gallery</h2>
+                    <a href="#">룩북</a>
+                    <a href="#">캠페인 화보</a>
+                    <a href="#">스타일 아카이브</a>
+                    <a href="#">비하인드 컷</a>
+                </section>
+                <section class="mega-menu-column" aria-labelledby="submenu-community">
+                    <h2 id="submenu-community">Community</h2>
+                    <a href="#">공지사항</a>
+                    <a href="#">이벤트</a>
+                    <a href="#">팬 커뮤니티</a>
+                    <a href="#">문의하기</a>
+                </section>
+            </div>
         </div>
     </header>
 
@@ -203,7 +79,7 @@
                     </div>
                 </div>
                 <!-- 배너 3 -->
-                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1539109132314-34a9c6689711?q=80&w=1920');">
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1920');">
                     <div class="slide-content">
                         <h2>PINK REBELLION</h2>
                         <a href="#" class="btn-outline">EXPLORE</a>
@@ -251,26 +127,151 @@
                 </div>
             </div>
         </section>
+
+        <section class="fashion-week-section" aria-labelledby="fashionWeekTitle">
+            <div class="container">
+                <div class="fashion-week-heading">
+                    <div>
+                        <p class="fashion-week-eyebrow">RUNWAYS AROUND THE WORLD</p>
+                        <h2 class="fashion-week-title" id="fashionWeekTitle">세계의 패션쇼</h2>
+                        <p class="fashion-week-subtitle">도시마다 다른 감각과 스타일이 펼쳐지는 런웨이를 만나보세요.</p>
+                    </div>
+                    <div class="fashion-week-controls">
+                        <button class="fashion-week-button fashion-week-prev" type="button" aria-label="이전 패션쇼"></button>
+                        <button class="fashion-week-button fashion-week-next" type="button" aria-label="다음 패션쇼"></button>
+                    </div>
+                </div>
+
+                <div class="swiper fashion-week-swiper">
+                    <div class="swiper-wrapper">
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion1/600/800" alt="파리 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>파리 패션위크</h3>
+                                <p class="fashion-week-city">파리, 프랑스</p>
+                                <p class="fashion-week-season">매년 2월 · 9월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion2/600/800" alt="밀라노 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>밀라노 패션위크</h3>
+                                <p class="fashion-week-city">밀라노, 이탈리아</p>
+                                <p class="fashion-week-season">매년 2월 · 9월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion3/600/800" alt="뉴욕 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>뉴욕 패션위크</h3>
+                                <p class="fashion-week-city">뉴욕, 미국</p>
+                                <p class="fashion-week-season">매년 2월 · 9월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion4/600/800" alt="런던 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>런던 패션위크</h3>
+                                <p class="fashion-week-city">런던, 영국</p>
+                                <p class="fashion-week-season">매년 2월 · 9월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion5/600/800" alt="서울 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>서울 패션위크</h3>
+                                <p class="fashion-week-city">서울, 대한민국</p>
+                                <p class="fashion-week-season">매년 3월 · 9월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion6/600/800" alt="도쿄 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>도쿄 패션위크</h3>
+                                <p class="fashion-week-city">도쿄, 일본</p>
+                                <p class="fashion-week-season">매년 3월 · 8월</p>
+                            </div>
+                        </article>
+                        <article class="swiper-slide fashion-week-card">
+                            <img src="https://picsum.photos/seed/fashion7/600/800" alt="상하이 패션위크 런웨이 이미지" width="600" height="800">
+                            <div class="fashion-week-card-content">
+                                <h3>상하이 패션위크</h3>
+                                <p class="fashion-week-city">상하이, 중국</p>
+                                <p class="fashion-week-season">매년 3월 · 10월</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="fashion-week-pagination" aria-label="패션쇼 슬라이드 페이지"></div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
             <div class="footer-content">
-                <a href="#" class="logo footer-logo">FASHION <span>404</span></a>
+                <a href="#" class="logo footer-logo">FASHION <span>Jayomi</span></a>
                 <div class="company-info">
-                    <p>CEO. Fashion 404 Designer | Address. Seoul, Republic of Korea</p>
-                    <p>Email. contact@fashion404.com | Tel. 02-1234-5678</p>
-                    <p style="margin-top:20px; color:#333;">&copy; 2024 Fashion 404. All Rights Reserved.</p>
+                    <p>CEO. Fashion Jayomi Designer | Address. Seoul, Republic of Korea</p>
+                    <p>Email. contact@fashionJayomi.com | Tel. 02-1234-5678</p>
+                    <p style="margin-top:20px; color:#333;">&copy; 2024 Fashion Jayomi. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         const wrapper = document.getElementById('bannerWrapper');
         const dots = document.querySelectorAll('.dot');
+        const siteHeader = document.getElementById('siteHeader');
+        const megaMenu = document.getElementById('megaMenu');
+        const menuToggle = document.getElementById('menuToggle');
+        const mainMenuLinks = document.querySelectorAll('.site-header .menu a');
         let current = 0;
         let timer;
+
+        function setMegaMenuOpen(isOpen) {
+            siteHeader.classList.toggle('is-menu-open', isOpen);
+            megaMenu.setAttribute('aria-hidden', String(!isOpen));
+        }
+
+        mainMenuLinks.forEach((link) => {
+            link.addEventListener('pointerenter', () => {
+                if (window.matchMedia('(min-width: 769px)').matches) {
+                    setMegaMenuOpen(true);
+                }
+            });
+            link.addEventListener('focus', () => {
+                if (window.matchMedia('(min-width: 769px)').matches) {
+                    setMegaMenuOpen(true);
+                }
+            });
+        });
+
+        siteHeader.addEventListener('pointerleave', () => setMegaMenuOpen(false));
+        siteHeader.addEventListener('focusout', (event) => {
+            if (!siteHeader.contains(event.relatedTarget)) {
+                setMegaMenuOpen(false);
+            }
+        });
+
+        menuToggle.addEventListener('click', () => {
+            const isOpen = menuToggle.getAttribute('aria-expanded') !== 'true';
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+            menuToggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+            siteHeader.classList.toggle('is-mobile-nav-open', isOpen);
+        });
+
+        siteHeader.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setMegaMenuOpen(false);
+                siteHeader.classList.remove('is-mobile-nav-open');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.setAttribute('aria-label', '메뉴 열기');
+                menuToggle.focus();
+            }
+        });
 
         function slide(idx) {
             if(idx < 0) idx = 2;
@@ -293,6 +294,39 @@
         });
 
         startTimer();
+
+        new Swiper('.fashion-week-swiper', {
+            loop: true,
+            loopAdditionalSlides: 3,
+            slidesPerView: 1.2,
+            spaceBetween: 20,
+            grabCursor: true,
+            speed: 600,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: true,
+                pauseOnMouseEnter: true
+            },
+            navigation: {
+                nextEl: '.fashion-week-next',
+                prevEl: '.fashion-week-prev'
+            },
+            pagination: {
+                el: '.fashion-week-pagination',
+                clickable: true
+            },
+            breakpoints: {
+                480: {
+                    slidesPerView: 2
+                },
+                768: {
+                    slidesPerView: 3
+                },
+                1200: {
+                    slidesPerView: 4
+                }
+            }
+        });
     </script>
 </body>
 </html>
