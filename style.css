@@ -1,0 +1,104 @@
+/* ... 기존 스타일 유지 ... */
+
+/* 메인 배너 스타일 */
+.main-banner {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* 화면의 80% 높이 */
+    overflow: hidden;
+    background-color: #000;
+}
+
+.banner-wrapper {
+    display: flex;
+    width: 300%; /* 슬라이드 3장 */
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+    cursor: grab;
+}
+
+.banner-wrapper:active {
+    cursor: grabbing;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.slide-content h2 {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 5px;
+}
+
+.slide-content p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #eee;
+}
+
+/* 버튼 스타일 (Darkblue 포인트) */
+.btn-outline {
+    display: inline-block;
+    padding: 15px 40px;
+    border: 2px solid #00008b;
+    color: #fff;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: #00008b;
+    color: #fff;
+}
+
+/* 인디케이터 (Hotpink 포인트) */
+.banner-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #ff69b4; /* Hotpink */
+    width: 30px;
+    border-radius: 10px;
+}
+
+/* 애니메이션 효과 */
+.fade-in {
+    animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .slide-content h2 { font-size: 2.5rem; }
+    .main-banner { height: 60vh; }
+}
+
+/* ... 나머지 기존 스타일 ... */

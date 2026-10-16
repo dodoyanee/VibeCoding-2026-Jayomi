@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion 404 | Designer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">FASHION <span>404</span></h1>
+            <nav>
+                <ul class="menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Show</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- 메인 배너 영역 추가 -->
+        <section class="main-banner">
+            <div class="banner-wrapper" id="bannerWrapper">
+                <!-- 슬라이드 1 -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1920');">
+                    <div class="slide-content">
+                        <h2 class="fade-in">ERROR IS BEAUTY</h2>
+                        <p>기존의 틀을 깨는 패션의 재정의, FASHION 404</p>
+                        <a href="#" class="btn-outline">COLLECTION VIEW</a>
+                    </div>
+                </div>
+                <!-- 슬라이드 2 -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920');">
+                    <div class="slide-content">
+                        <h2 class="fade-in">DEEP BLUE MIDNIGHT</h2>
+                        <p>다크블루의 깊이감으로 표현한 도시의 실루엣</p>
+                        <a href="#" class="btn-outline">SHOP NOW</a>
+                    </div>
+                </div>
+                <!-- 슬라이드 3 -->
+                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1920');">
+                    <div class="slide-content">
+                        <h2 class="fade-in">HOTPINK REBELLION</h2>
+                        <p>강렬한 핫핑크로 완성하는 당신만의 개성</p>
+                        <a href="#" class="btn-outline">EXPLORE</a>
+                    </div>
+                </div>
+            </div>
+            <!-- 배너 인디케이터 -->
+            <div class="banner-dots" id="bannerDots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        <!-- 이벤트 파트 (기존 유지) -->
+        <section class="event-section">
+            <div class="container">
+                <h2 class="section-title">Latest Events</h2>
+                <div class="card-wrapper">
+                    <!-- 카드 내용 동일 -->
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1539109132314-34a9c6689711?q=80&w=600');">
+                            <div class="card-badge">NEW</div>
+                        </div>
+                        <div class="card-content">
+                            <h3>2024 Winter Collection</h3>
+                            <p>에러에서 영감을 얻은 새로운 컬렉션, 'Not Found' 시리즈를 만나보세요.</p>
+                            <a href="#" class="btn-more">View More</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600');"></div>
+                        <div class="card-content">
+                            <h3>Private Show: Seoul</h3>
+                            <p>강남에서 열리는 디자이너 404의 독점 프라이빗 패션쇼 초대권 증정 이벤트.</p>
+                            <a href="#" class="btn-more">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600');"></div>
+                        <div class="card-content">
+                            <h3>Creative Collaboration</h3>
+                            <p>다크블루와 핫핑크의 조화, 이색 브랜드와의 협업 아이템 공개.</p>
+                            <a href="#" class="btn-more">Read Story</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <!-- 하단 정보 동일 -->
+        <div class="container">
+            <div class="footer-content">
+                <h1 class="logo footer-logo">FASHION <span>404</span></h1>
+                <div class="company-info">
+                    <p>CEO. Fashion 404 Designer | Address. Seoul, Republic of Korea</p>
+                    <p>Email. contact@fashion404.com | Tel. 02-1234-5678</p>
+                    <p class="copy">Copyright &copy; 2024 Fashion 404. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
