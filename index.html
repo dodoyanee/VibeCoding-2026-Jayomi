@@ -4,90 +4,246 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fashion 404 | Designer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- 구글 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #000000 !important;
+            color: #ffffff;
+            font-family: 'Montserrat', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 상단 헤더 */
+        header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #1a1a1a;
+            background-color: #000;
+        }
+
+        header .container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -1px; }
+        .logo span { color: #ff69b4; text-shadow: 2px 2px 0px #00008b; }
+
+        .menu { display: flex; gap: 30px; list-style: none; }
+        .menu a { color: #fff; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 14px; }
+        .menu a:hover { color: #ff69b4; }
+
+        /* 메인 배너 */
+        .main-banner {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .banner-wrapper {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* 배너 어둡게 처리하여 글자 강조 */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .slide-content { position: relative; z-index: 10; text-align: center; }
+        .slide-content h2 { font-size: 4.5rem; font-weight: 900; letter-spacing: 8px; margin-bottom: 20px; text-shadow: 3px 3px 10px rgba(0,0,0,0.8); }
+        
+        .btn-outline {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 2px solid #ff69b4; /* 핫핑크 테두리 */
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-outline:hover { background: #ff69b4; color: #000; }
+
+        .banner-dots {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.3); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+        .dot.active { background: #ff69b4; width: 35px; border-radius: 10px; }
+
+        /* 이벤트 섹션 */
+        .event-section { padding: 100px 0; }
+        .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 60px; text-align: center; letter-spacing: 2px; }
+
+        .card-wrapper {
+            display: flex;
+            gap: 25px;
+            justify-content: space-between;
+        }
+
+        .card {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #1f1f1f;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .card:hover { transform: translateY(-15px); border-color: #00008b; box-shadow: 0 10px 30px rgba(0,0,139,0.3); }
+
+        /* 이미지 영역 - 안정적인 새 이미지 주소 적용 */
+        .card-img {
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            background-color: #1a1a1a; /* 로딩 전 배경색 */
+        }
+
+        .card-content { padding: 30px; }
+        .card-content h3 { color: #ff69b4; margin-bottom: 15px; font-size: 1.4rem; font-weight: 700; }
+        .card-content p { color: #999; font-size: 0.95rem; margin-bottom: 25px; height: 3em; overflow: hidden; }
+        
+        /* View More 버튼 디자인 개선 (가독성 UP) */
+        .btn-more {
+            display: inline-block;
+            color: #4d4dff; /* 밝은 다크블루로 변경하여 가독성 높임 */
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 1px solid #4d4dff;
+            padding: 8px 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-more:hover { background: #4d4dff; color: #fff; }
+
+        /* 푸터 */
+        footer { padding: 80px 0; background: #050505; border-top: 1px solid #111; }
+        .footer-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-logo { margin-bottom: 30px; }
+        .company-info p { font-size: 0.85rem; color: #555; margin-bottom: 8px; }
+
+        /* 반응형 */
+        @media (max-width: 900px) {
+            .card-wrapper { flex-direction: column; }
+            .slide-content h2 { font-size: 2.8rem; }
+            .main-banner { height: 400px; }
+        }
+    </style>
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1 class="logo">FASHION <span>Jayomi</span></h1>
-            <nav>
-                <ul class="menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Show</a></li>
-                    <li><a href="#">Gallery</a></li>
-                    <li><a href="#">Community</a></li>
-                </ul>
-            </nav>
+            <a href="#" class="logo">FASHION <span>404</span></a>
+            <ul class="menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Show</a></li>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">Community</a></li>
+            </ul>
         </div>
     </header>
 
     <main>
-        <!-- 메인 배너 영역 추가 -->
         <section class="main-banner">
             <div class="banner-wrapper" id="bannerWrapper">
-                <!-- 슬라이드 1 -->
-                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1920');">
+                <!-- 배너 1 -->
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920');">
                     <div class="slide-content">
-                        <h2 class="fade-in">ERROR IS BEAUTY</h2>
-                        <p>기존의 틀을 깨는 패션의 재정의, FASHION 404</p>
-                        <a href="#" class="btn-outline">COLLECTION VIEW</a>
+                        <h2>ERROR IS BEAUTY</h2>
+                        <a href="#" class="btn-outline">VIEW COLLECTION</a>
                     </div>
                 </div>
-                <!-- 슬라이드 2 -->
-                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1920');">
+                <!-- 배너 2 -->
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1920');">
                     <div class="slide-content">
-                        <h2 class="fade-in">DEEP BLUE MIDNIGHT</h2>
-                        <p>다크블루의 깊이감으로 표현한 도시의 실루엣</p>
+                        <h2>DEEP BLUE NIGHT</h2>
                         <a href="#" class="btn-outline">SHOP NOW</a>
                     </div>
                 </div>
-                <!-- 슬라이드 3 -->
-                <div class="slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1920');">
+                <!-- 배너 3 -->
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1539109132314-34a9c6689711?q=80&w=1920');">
                     <div class="slide-content">
-                        <h2 class="fade-in">HOTPINK REBELLION</h2>
-                        <p>강렬한 핫핑크로 완성하는 당신만의 개성</p>
+                        <h2>PINK REBELLION</h2>
                         <a href="#" class="btn-outline">EXPLORE</a>
                     </div>
                 </div>
             </div>
-            <!-- 배너 인디케이터 -->
-            <div class="banner-dots" id="bannerDots">
+            <div class="banner-dots">
                 <span class="dot active"></span>
                 <span class="dot"></span>
                 <span class="dot"></span>
             </div>
         </section>
 
-        <!-- 이벤트 파트 (기존 유지) -->
         <section class="event-section">
             <div class="container">
-                <h2 class="section-title">Latest Events</h2>
+                <h2 class="section-title">LATEST EVENTS</h2>
                 <div class="card-wrapper">
-                    <!-- 카드 내용 동일 -->
+                    <!-- 카드 1: 이미지 교체됨 -->
                     <div class="card">
-                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1539109132314-34a9c6689711?q=80&w=600');">
-                            <div class="card-badge">NEW</div>
-                        </div>
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800');"></div>
                         <div class="card-content">
-                            <h3>2024 Winter Collection</h3>
+                            <h3>2024 Winter</h3>
                             <p>에러에서 영감을 얻은 새로운 컬렉션, 'Not Found' 시리즈를 만나보세요.</p>
                             <a href="#" class="btn-more">View More</a>
                         </div>
                     </div>
+                    <!-- 카드 2 -->
                     <div class="card">
-                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600');"></div>
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800');"></div>
                         <div class="card-content">
-                            <h3>Private Show: Seoul</h3>
+                            <h3>Private Show</h3>
                             <p>강남에서 열리는 디자이너 404의 독점 프라이빗 패션쇼 초대권 증정 이벤트.</p>
                             <a href="#" class="btn-more">Apply Now</a>
                         </div>
                     </div>
+                    <!-- 카드 3 -->
                     <div class="card">
-                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600');"></div>
+                        <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800');"></div>
                         <div class="card-content">
-                            <h3>Creative Collaboration</h3>
+                            <h3>Collaboration</h3>
                             <p>다크블루와 핫핑크의 조화, 이색 브랜드와의 협업 아이템 공개.</p>
                             <a href="#" class="btn-more">Read Story</a>
                         </div>
@@ -98,19 +254,45 @@
     </main>
 
     <footer>
-        <!-- 하단 정보 동일 -->
         <div class="container">
             <div class="footer-content">
-                <h1 class="logo footer-logo">FASHION <span>Jayomi</span></h1>
+                <a href="#" class="logo footer-logo">FASHION <span>404</span></a>
                 <div class="company-info">
-                    <p>CEO. Fashion Jayomi Designer | Address. Seoul, Republic of Korea</p>
-                    <p>Email. contact@fashionJayomi.com | Tel. 02-1234-5678</p>
-                    <p class="copy">Copyright &copy; 2024 Fashion Jayomi. All Rights Reserved.</p>
+                    <p>CEO. Fashion 404 Designer | Address. Seoul, Republic of Korea</p>
+                    <p>Email. contact@fashion404.com | Tel. 02-1234-5678</p>
+                    <p style="margin-top:20px; color:#333;">&copy; 2024 Fashion 404. All Rights Reserved.</p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        const wrapper = document.getElementById('bannerWrapper');
+        const dots = document.querySelectorAll('.dot');
+        let current = 0;
+        let timer;
+
+        function slide(idx) {
+            if(idx < 0) idx = 2;
+            if(idx > 2) idx = 0;
+            current = idx;
+            wrapper.style.transform = `translateX(-${current * (100/3)}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        }
+
+        function startTimer() {
+            timer = setInterval(() => slide(current + 1), 3000);
+        }
+
+        dots.forEach((d, i) => {
+            d.addEventListener('click', () => {
+                clearInterval(timer);
+                slide(i);
+                setTimeout(startTimer, 2000); // 클릭 후 2초 뒤 자동재생 재개
+            });
+        });
+
+        startTimer();
+    </script>
 </body>
 </html>
