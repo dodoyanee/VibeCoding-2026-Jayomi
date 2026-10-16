@@ -1,5 +1,139 @@
 /* ... 기존 스타일 유지 ... */
 
+/* 헤더와 전체 하위 메뉴 */
+.site-header,
+.site-header *,
+.site-header *::before,
+.site-header *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.site-header > .container,
+.mega-menu-inner {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+}
+
+.site-header {
+    position: relative;
+    z-index: 10;
+    background: #111;
+    color: #aaa;
+}
+
+.site-header > .container {
+    min-height: 84px;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: center;
+}
+
+.site-header .logo {
+    margin: 0;
+    color: #fff;
+    font-size: 1.25rem;
+    white-space: nowrap;
+}
+
+.site-header .logo span {
+    color: #ff69b4;
+}
+
+.site-header nav {
+    min-width: 0;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu a,
+.mega-menu a {
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.menu a {
+    display: block;
+    padding: 30px 12px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.menu a:hover,
+.menu a:focus-visible,
+.mega-menu a:hover,
+.mega-menu a:focus-visible {
+    color: #fff;
+}
+
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    background: #1a1a1a;
+    transition: max-height 0.35s ease-out, opacity 0.3s ease-out, visibility 0s linear 0.35s;
+}
+
+.site-header.is-menu-open .mega-menu {
+    max-height: 320px;
+    visibility: visible;
+    opacity: 1;
+    transition: max-height 0.35s ease-out, opacity 0.3s ease-out, visibility 0s;
+}
+
+.mega-menu-inner {
+    display: grid;
+    grid-template-columns: 220px repeat(4, minmax(0, 1fr));
+    padding-top: 30px;
+    padding-bottom: 36px;
+}
+
+.mega-menu-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.site-header.is-menu-open .mega-menu-column {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.12s;
+}
+
+.mega-menu-column h2 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.mega-menu-column a {
+    font-size: 0.9rem;
+}
+
+.menu-toggle {
+    display: none;
+}
+
 /* 메인 배너 스타일 */
 .main-banner {
     position: relative;
@@ -99,6 +233,82 @@
 @media (max-width: 768px) {
     .slide-content h2 { font-size: 2.5rem; }
     .main-banner { height: 60vh; }
+
+    .site-header > .container {
+        min-height: 72px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 0 12px 12px;
+        border: 0;
+        background: transparent;
+        color: #aaa;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
+        color: #fff;
+    }
+
+    .menu-toggle-icon,
+    .menu-toggle-icon::before,
+    .menu-toggle-icon::after {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: currentColor;
+        transition: transform 0.2s ease;
+    }
+
+    .menu-toggle-icon {
+        position: relative;
+    }
+
+    .menu-toggle-icon::before,
+    .menu-toggle-icon::after {
+        position: absolute;
+        left: 0;
+        content: "";
+    }
+
+    .menu-toggle-icon::before { top: -7px; }
+    .menu-toggle-icon::after { top: 7px; }
+
+    .site-header.is-mobile-nav-open nav {
+        display: block;
+    }
+
+    .site-header nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        width: 100%;
+        background: #111;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 8px 24px 16px;
+    }
+
+    .menu a {
+        padding: 14px 0;
+        text-align: left;
+    }
+
+    .mega-menu {
+        display: none;
+    }
 }
 
 /* ... 나머지 기존 스타일 ... */
