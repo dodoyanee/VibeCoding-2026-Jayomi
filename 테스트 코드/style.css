@@ -1,0 +1,74 @@
+/* 1. 기본 배경 설정 (흰 화면 방지) */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000000; /* 전체 배경 검정 */
+    color: #ffffff;
+    font-family: sans-serif;
+}
+
+/* 2. 컨테이너 (가운데 정렬) */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 3. 카드 정렬 (이 부분이 핵심입니다) */
+.card-wrapper {
+    display: grid; /* 그리드 레이아웃 사용 */
+    grid-template-columns: repeat(3, 1fr); /* 정확히 3등분 */
+    gap: 30px; /* 카드 사이 간격 */
+    margin-top: 50px;
+}
+
+/* 4. 개별 카드 스타일 */
+.card {
+    background: #111111; /* 카드 배경 어두운 회색 */
+    border: 1px solid #222222;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column; /* 카드 안의 내용 세로 정렬 */
+}
+
+.card-img {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-color: #333; /* 이미지 없을 때 대비 */
+}
+
+.card-content {
+    padding: 20px;
+}
+
+/* 타이틀 핫핑크 포인트 */
+.card-content h3 {
+    color: #ff69b4; 
+    margin-bottom: 10px;
+}
+
+/* 버튼 다크블루 포인트 */
+.btn-more {
+    display: inline-block;
+    color: #00008b;
+    border: 1px solid #00008b;
+    padding: 8px 15px;
+    text-decoration: none;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.btn-more:hover {
+    background: #00008b;
+    color: #fff;
+}
+
+/* 반응형: 화면이 작아지면 세로로 나열 */
+@media (max-width: 900px) {
+    .card-wrapper {
+        grid-template-columns: 1fr; /* 1단으로 변경 */
+    }
+}
