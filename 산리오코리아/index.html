@@ -2,7 +2,8 @@
 <html>
   <head>
     <title>산리오 코리아</title>
-    <link rel="icon" type="image/png" href="./images/icon_favicon.png" />
+    <!-- 사이트 탭 옆 아이콘 (파비콘) 설정 방법 -->
+    <link rel="icon" type="image/png" href="./images/icon_favicon.png"/>
     <meta charset="UTF-8" />
     <!-- 인터널스타일시트(internal style sheet) -->
     <!-- 상단영역 스타일 (Top Area Styles) -->
@@ -10,7 +11,6 @@
             /* 웹폰트 로딩하기(CDN방식)
               CDN은 Content Delivery Networt 즉, 네트워크 망으로
               컨텐트를 배달시켜 쓰는 방식 */
-
             @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nanum+Gothic&display=swap");
 
             @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
@@ -21,8 +21,8 @@
               font-size: 10px;
               /* 왜 10px인가? rem단위에 계산이 용이함! */
             }
-            html,
-            body {
+
+            html,body {
               /* 웹폰트체 지정 (콤마는 우선순위) */
               font-family: Montserrat, NanumBarunGothic, Dotum, sans-serif;
             }
@@ -44,12 +44,15 @@
               justify-content: space-between; /* 양끝 정렬 */
               height: 90px; /* 높이 지정 */
             }
+
             .logo-box {
               flex: 0 0 auto; /* 크기가 고정된 flex 아이템 */
             }
+
             .logo-box img {
               height: 40px; /* 로고 이미지 높이 고정 */
             }
+
             .menu-list {
               flex: 0 0 auto; /* 크기 고정 */
               display: flex; /* 가로로 나열 */
@@ -59,10 +62,12 @@
               margin: 0; /* 마진 제거 */
               font-size: 1.6rem; /* 폰트 크기 */
             }
+
             .menu-list li a {
               color: inherit; /* 글자색 상속 */
               text-decoration: none; /* 밑줄 제거 */
               text-transform: uppercase; /* 대문자 변환 */
+              font-weight: 500;
             }
 
             /* 배너영역 스타일 */
@@ -75,12 +80,14 @@
               background: 색 이 반 고 윙/크
               background: 배경색 이미지 반복 고정 위치/크기 */
             }
+
             .banner-area .center-banner {
               text-align: center;
               /* display: flex; */
               /* justify-content: center; */
               /* align-items: center; */
             }
+
             /* 메인 비주얼 이미지 스타일 */
             .banner-area .main-visual-img {
               /* display: block; */
@@ -123,11 +130,12 @@
               text-align: center;
               text-transform: uppercase;
               font-size: 1rem;
+              color: #33144e;
+              font-weight: 400;
               /* outline: 1px solid red; */
             }
 
             /* 움직일 대상 마우스 */
-
             .scroll_btn .mouse {
               position: absolute;
               left: 50%;
@@ -136,9 +144,10 @@
               display: block;
               width: 26px;
               height: 36px;
-              border: 2px solid #2b2726;
+              border: 2px solid #67408a;
               background-color: white;
               border-radius: 15px;
+              opacity: 85%;
               /* 애니메이션 호출: (이시이지반방마)
                  [이름/시간/이징/지연시간/반복/방향/마지막 상태] */
               animation: mouse-ani 1.0s ease-in-out infinite alternate;
@@ -162,7 +171,7 @@
               translate: -50% -50%;
               width: 5px;
               height: 5px;
-              background-color: #2b2726;
+              background-color: #67408a;
               border-radius: 50%;
               opacity: 0;
               /* 마우스휠 키프레임 호출 : 이시이지반방마 */
