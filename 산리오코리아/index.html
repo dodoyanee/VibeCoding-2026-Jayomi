@@ -666,7 +666,7 @@
         /* 메뉴: 화면 전체를 덮는 흰색 패널, 오른쪽에서 슬라이드 */
         /* 여기서 바깥으로 이동함 -> 이유는? 처음부터 셋팅이 필요함
            사이즈 변경시 갑자기 화면에 나타났다가 오른쪽으로 사라짐! */
-        .top-area nav {
+        .top-area.mob nav{
           position: fixed;
           top: 0;
           left: 0;
@@ -690,7 +690,8 @@
 
         /* 모바일용 메뉴를 위한 클래스 지정: transition 넣기
            -> mob 클래스를 자바스크립트에서 작동시 넣어주면 된다! */
-        .top-area nav .mob {
+        .top-area.mob .on nav{ 
+          /* 트래스폼 보이게 설정 */
             transition:
             transform 0.4s ease,
             visibility 0s 0.4s;
@@ -1477,15 +1478,44 @@
       // 보안상 let보다 const를 함수담을때 많이 씀.
       
       // const 나야나함수 = ()=>{};
-      const 나야나함수 = ()=>{
-      // 상단요소의 배경색 바꾸기
-      나야나.style.backgroundColor = 'red';
+      const 나야나함수 = (색상)=>{
+        console.log('함수호출! 전달값은?',색상);
+        // 상단요소의 배경색 바꾸기
+        나야나.style.backgroundColor = 색상;
+        나야나.style.transition = '2s ease-in-out';
+        // 회전은 로고가 하도록 변경
+        나야나.querySelector('.logo-box').style.rotate = '360deg';
+        // 로고 트랜지션 : 2초후 1초간 ease-in-out
+        나야나.querySelector('.logo-box').style.transition = '1s ease-in-out 2s';
+        // 로고 트랜지션
       }; ///// 나야나 함수 /////
 
       // 할당된 화살표 함수는 반드시 함수 아래쪽에서 호출해야함!
       // 또는 이벤트 발생시엔 상관없음.
 
-      나야나함수();
+      // 함수는 호출시 함수명(전달값) -> 소괄호 필수
+      // 만약 전달변수가 있다면 값을 써서 보내야함!
+      // 나야나함수('orange'); ▶ 클릭이벤트 함수내부로 이동!!!
+
+      // 최종 요구사함
+      // -> 상단 배너 클릭시
+      // 상단 메뉴 배경색을 변경하고
+      // 상단 메뉴는 360도 회전함
+      // 트랜지션으로 애니메이션 2초간 되게함
+
+      // 대상선정:
+      // 1. 이벤트 대상 : 상단배너 (.main-visual-img)
+      let 너를클릭해 = document.querySelector('.main-visual-img');
+      // 2. 변경대상 : 상단영역은 이미 위에서 선택.
+      // 3. 이벤트 설정하기 : 클릭 이벤트
+      // 클릭 이벤트는 onclick속성으로 셋팅!
+      // 클릭시 함수호출은 바로 실행 안되게 화살표 함수로 표시
+      너를클릭해.onclick = ()=>{
+        // 해당요소에 클릭 이벤트가 발생하면 이 구역을 실행함
+        나야나함수('orange');
+      }; ///// onclick 함수 /////
+
+
 
 
 
