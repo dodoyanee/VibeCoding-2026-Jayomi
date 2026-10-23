@@ -3,11 +3,10 @@
   <head>
     <title>산리오 코리아</title>
     <meta charset="UTF-8" />
-    <!-- 사이트 탭 옆 아이콘 (파비콘) 설정 방법 -->
-    <link rel="icon" type="image/png" href="./images/icon_favicon.png" />
     <!-- 미디어쿼리를 위한 뷰포트 필수!!!
      줄임말 meta:vp -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="./images/icon_favicon.png" />
     <!-- 인터널스타일시트(internal style sheet) -->
     <!-- 상단영역 스타일 (Top Area Styles) -->
     <style>
@@ -152,7 +151,7 @@
         border-radius: 15px;
         /* 애니메이션 호출 : (이시이지반방마)
         이름 시간 이징 지연시간 반복 방향 마지막상태 */
-        animation: mouse-ani 0.8s ease-in-out infinite alternate;
+        animation: mouse-ani 0.5s ease-in-out infinite alternate;
       }
       /* 마우스 애니메이션 키프레임 */
       @keyframes mouse-ani {
@@ -176,7 +175,7 @@
         border-radius: 50%;
         opacity: 0;
         /* 마우스휠 키프레임 호출 : 이시이지반방마 */
-        animation: mouse-dot-ani 1s linear infinite;
+        animation: mouse-dot-ani 1.5s linear infinite;
       }
       /* 마우스휠 애니메이션 키프레임 */
       @keyframes mouse-dot-ani {
@@ -569,27 +568,6 @@
         display: none;
       }
 
-      /* 모바일 메뉴 미리 셋팅하기 */
-      /* .top-area nav {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          box-sizing: border-box;
-          padding-top: 100px;
-          background: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1;
-          transform: translateX(100%);
-          visibility: hidden;
-          transition:
-            transform 0.4s ease,
-            visibility 0s 0.4s;
-        } */
-
       /* ---------- 1199px 이하 ---------- */
       @media screen and (max-width: 1199px) {
         /* 1. 공통 컨테이너: 고정 너비 → 가로 꽉 참 + 좌우 14px 여백 */
@@ -664,9 +642,7 @@
         }
 
         /* 메뉴: 화면 전체를 덮는 흰색 패널, 오른쪽에서 슬라이드 */
-        /* 여기서 바깥으로 이동함 -> 이유는? 처음부터 셋팅이 필요함
-           사이즈 변경시 갑자기 화면에 나타났다가 오른쪽으로 사라짐! */
-        .top-area.mob nav{
+        .top-area nav {
           position: fixed;
           top: 0;
           left: 0;
@@ -681,22 +657,23 @@
           z-index: 1;
           transform: translateX(100%);
           visibility: hidden;
-          /* 트랜지션(transition)을 처음부터 주면 메뉴 변경시 화면에 한번
-          보이므로 처음에 트랜지션을 주지 않는다. */
+          /* 트랜지션을 처음부터 주면 메뉴변경시 화면한번 보이므로
+          처음엔 트랜지션을 주지 않는다. */
           /* transition:
             transform 0.4s ease,
             visibility 0s 0.4s; */
         }
-
-        /* 모바일용 메뉴를 위한 클래스 지정: transition 넣기
-           -> mob 클래스를 자바스크립트에서 작동시 넣어주면 된다! */
-        .top-area.mob .on nav{ 
-          /* 트래스폼 보이게 설정 */
-            transition:
+        /* 모바일용 메뉴를 위한 클래스 지정:트랜지션 넣기 
+        -> mob클래스를 자바스크립트에서 작동시 넣어주면된다!*/
+        .top-area.mob nav{ /* 트랜지션설정 */
+          transition:
             transform 0.4s ease,
             visibility 0s 0.4s;
         }
-
+        .top-area.mob.on nav{/* 트랜스폼 보이게 설정 */
+          transform: translateX(0);
+          visibility: visible;
+        }
         .menu-open .top-area nav {
           transform: translateX(0);
           visibility: visible;
@@ -1446,37 +1423,36 @@
       </div>
     </footer>
     <script>
+      // 자바스크립트 월드에 오신것을 환영합니다!
+      console.log('안뇽!');
 
-      // 자바스크립트 안뇨옹
-      console.log('하이여');
-
-      // documnet는 전체 문서객체(DOM-Document Object Model)
+      // document는 전체 문서객체(DOM-Document Object Model)
       // 점(.)은 객체의 하위 속성으로 들어감
-      // 요서 선택법 : querrySelector(CSS 선택자)
-      // -> querrySelector는 첫번째로 만난 요소 하나만 가져옴
-      // -> 참고로 여러 요소 선택은 querrySelectorAll(CSS 선택자)
+      // 요소 선택법 : querySelector(CSS선택자)
+      // -> 첫번째 만난 요소 하나만 가져옴
+      // -> 참고로 여러요소선택은 querySelectorAll(CSS선택자)
 
       // 변수(저장주소)
       let 나야나 = document.querySelector('.top-area');
       // 변수는 따옴표로 싸지 않는 문자다.
       // 변수는 let으로 선언한다.
-      // 이퀄(=)은 오른쪾의 값이 왼쪽 변수에 할당되는 것.
+      // 이퀄(=)은 오른쪽의 값이 왼쪽변수에 할당된는 것!
       // 변수는 왜 쓰나? 재사용!
 
-      console.log('나는 누구인가?', 나야나)
+      console.log('나는 누구인가?',나야나)
 
       // 아래의 코드가 바로 실행하지 않고
       // 호출시에만 실행하도록 하려면? 함수안에 넣어준다!
       // 함수 이름을 호출할때 실행됨!
 
-      // function 함수명 (전달변수){코드}
-      // 화살표 함수가 유행
-      // 함수명 = ()=>{}
+      // 원래 함수
+      // function 함수명(전달변수){코드}
+      // 화살표 함수가 유행~~!
       // let 함수담을변수 = (전달변수)=>{코드}
 
       // const 는 상수 또는 함수를 담는 변수선언
       // 보안상 let보다 const를 함수담을때 많이 씀.
-      
+
       // const 나야나함수 = ()=>{};
       const 나야나함수 = (색상)=>{
         console.log('함수호출! 전달값은?',색상);
@@ -1487,17 +1463,17 @@
         나야나.querySelector('.logo-box').style.rotate = '360deg';
         // 로고 트랜지션 : 2초후 1초간 ease-in-out
         나야나.querySelector('.logo-box').style.transition = '1s ease-in-out 2s';
-        // 로고 트랜지션
-      }; ///// 나야나 함수 /////
+      }; ///////// 나야나함수 /////////
 
-      // 할당된 화살표 함수는 반드시 함수 아래쪽에서 호출해야함!
+
+      // 할당된 화살표함수는 반드시 함수 아래쪽에서 호출해야함!
       // 또는 이벤트 발생시엔 상관없음.
 
       // 함수는 호출시 함수명(전달값) -> 소괄호 필수
       // 만약 전달변수가 있다면 값을 써서 보내야함!
-      // 나야나함수('orange'); ▶ 클릭이벤트 함수내부로 이동!!!
+      // 나야나함수('orange'); -> 클릭이벤트 함수내부로 이동!
 
-      // 최종 요구사함
+      // 최종 요구사항
       // -> 상단 배너 클릭시
       // 상단 메뉴 배경색을 변경하고
       // 상단 메뉴는 360도 회전함
@@ -1507,13 +1483,13 @@
       // 1. 이벤트 대상 : 상단배너 (.main-visual-img)
       let 너를클릭해 = document.querySelector('.main-visual-img');
       // 2. 변경대상 : 상단영역은 이미 위에서 선택.
-      // 3. 이벤트 설정하기 : 클릭 이벤트
-      // 클릭 이벤트는 onclick속성으로 셋팅!
-      // 클릭시 함수호출은 바로 실행 안되게 화살표 함수로 표시
+      // 3. 이벤트 설정하기 : 클릭이벤트
+      // 클릭이벤트는 onclick 속성으로 셋팅!
+      // 클릭시 함수호출은 바로실행 안되게 화살표함수로 표시
       너를클릭해.onclick = ()=>{
-        // 해당요소에 클릭 이벤트가 발생하면 이 구역을 실행함
+        // 해당요소에 클릭이벤트가 발생하면 이 구역을 실행함
         나야나함수('orange');
-      }; ///// onclick 함수 /////
+      }; ///// onclik 함수 ///////
 
 
 
@@ -1521,7 +1497,9 @@
 
 
 
-      // 햄버거 메뉴 열고 닫기
+
+
+      // // 햄버거 메뉴 열고 닫기
       // const body = document.body;
       // const menuBtn = document.querySelector(".menu-btn");
       // function setMenu(open) {
