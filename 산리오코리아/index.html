@@ -573,11 +573,16 @@
         /* 1. 공통 컨테이너: 고정 너비 → 가로 꽉 참 + 좌우 14px 여백 */
         .tit-box,
         .character-card-box,
-        .card-part-box,
-        .contact-box {
+        .card-part-box {
           box-sizing: border-box;
           padding-left: 14px;
           padding-right: 14px;
+        }
+        /* 흰 배경 박스라 패딩이 아니라 바깥 여백으로 좌우 간격 확보 */
+        .contact-box {
+          box-sizing: border-box;
+          margin-left: 14px;
+          margin-right: 14px;
         }
 
         /* 2. 헤더: 높이 100px + 회색 구분선 */
@@ -629,14 +634,14 @@
           transform: translateY(-100%);
         }
         /* 열림 상태: X 모양 */
-        .menu-open .menu-btn span:nth-child(1) {
+        .top-area.on .menu-btn span:nth-child(1) {
           top: 50%;
           transform: translateY(-50%) rotate(45deg);
         }
-        .menu-open .menu-btn span:nth-child(2) {
+        .top-area.on .menu-btn span:nth-child(2) {
           opacity: 0;
         }
-        .menu-open .menu-btn span:nth-child(3) {
+        .top-area.on .menu-btn span:nth-child(3) {
           top: 50%;
           transform: translateY(-50%) rotate(-45deg);
         }
@@ -655,8 +660,16 @@
           align-items: center;
           justify-content: center;
           z-index: 1;
-          transform: translateX(100%);
-          visibility: hidden;
+          /* 변경내용 : 위치이동, 투명도 */
+          translate: 100%;
+          opacity: 0;
+          transition: .4s;
+          /* translate속성값은 하나만 쓰면 x축, 두개 x,y축 */
+          /* transform: translateX(100%); */
+          /* visibility와 opacity 투명도0의 차이는 
+          투명해진 후 이벤트 적용여부다.
+          opacity:0은 이벤트가 적용되고 visibility:hidden은 이벤트 적용안됨. */
+          /* visibility: hidden; */
           /* 트랜지션을 처음부터 주면 메뉴변경시 화면한번 보이므로
           처음엔 트랜지션을 주지 않는다. */
           /* transition:
@@ -665,14 +678,9 @@
         }
         /* 모바일용 메뉴를 위한 클래스 지정:트랜지션 넣기 
         -> mob클래스를 자바스크립트에서 작동시 넣어주면된다!*/
-        .top-area.mob nav{ /* 트랜지션설정 */
-          transition:
-            transform 0.4s ease,
-            visibility 0s 0.4s;
-        }
-        .top-area.mob.on nav{/* 트랜스폼 보이게 설정 */
-          transform: translateX(0);
-          visibility: visible;
+        .top-area.on nav{/* 트랜스폼 보이게 설정 */
+          translate: 0;
+          opacity: 1;
         }
         .menu-open .top-area nav {
           transform: translateX(0);
@@ -681,6 +689,7 @@
             transform 0.4s ease,
             visibility 0s;
         }
+
         body.menu-open {
           overflow: hidden; /* 메뉴 열린 동안 배경 스크롤 방지 */
         }
@@ -747,6 +756,21 @@
           font-size: 6.4px;
         }
 
+        /* 컨텐츠 좌우 여백: 화면 끝에 붙지 않도록 20px */
+        .tit-box,
+        .character-card-box,
+        .card-part-box {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .contact-box {
+          margin-left: 20px;
+          margin-right: 20px;
+        }
+        .top-inner {
+          padding: 0 20px;
+        }
+
         /* 5. 섹션 공통: 상하 여백 75px */
         .main-area > section + section {
           padding-top: 75px;
@@ -785,7 +809,7 @@
         .company-area .card-part {
           flex: 0 0 50%;
           box-sizing: border-box;
-          padding: 0 0 5% 0;
+          padding: 0 20px 5% 20px;
           border-right: 1px solid #ddd;
           border-bottom: 1px solid #ddd;
         }
@@ -793,7 +817,7 @@
           border-right: 0;
         }
         .company-area .card-part:nth-child(n + 3) {
-          padding: 5% 0 0 0;
+          padding: 5% 20px 0 20px;
           border-bottom: 0;
         }
         /* 홀수 개일 때 마지막 항목은 한 줄 전체 사용 */
@@ -823,16 +847,18 @@
         }
         .recruit-area .img-box {
           grid-column: 1;
-          grid-row: 1 / span 3;
+          grid-row: 1 / span 2;
           width: 100%;
         }
         .recruit-area .img-box img {
           max-width: 100%;
         }
         .recruit-area .card-title,
-        .recruit-area .card-desc,
         .recruit-area .btn-box {
           grid-column: 2;
+        }
+        .recruit-area .card-desc {
+          display: none;
         }
         .recruit-area .btn-box {
           margin-bottom: 0;
@@ -911,10 +937,10 @@
           height: 34px;
         }
 
-        /* 4. 메인 비주얼: 좌우 여백 없음, 스크롤 버튼 하단 20px */
+        /* 4. 메인 비주얼: 좌우 여백 20px, 스크롤 버튼 하단 20px */
         .banner-area {
-          padding-left: 0;
-          padding-right: 0;
+          padding-left: 20px;
+          padding-right: 20px;
         }
         .scroll_btn {
           bottom: 20px;
@@ -947,11 +973,17 @@
         .company-area .img-box img {
           width: 35%;
         }
+        /* 한 줄 전체를 쓰는 마지막 카드도 다른 카드와 같은 아이콘 크기 유지 */
+        .company-area .card-part:last-child:nth-child(odd) .img-box {
+          width: 50%;
+          margin: 0 auto;
+        }
 
         /* 9. recruit: 아이콘 52% / 텍스트 48%, 더보기 버튼 최대 80px */
         .recruit-area .card-part {
           grid-template-columns: 52% 48%;
           column-gap: 0;
+          align-items: center;
         }
         .recruit-area .btn-view {
           display: block;
@@ -1486,10 +1518,43 @@
       // 3. 이벤트 설정하기 : 클릭이벤트
       // 클릭이벤트는 onclick 속성으로 셋팅!
       // 클릭시 함수호출은 바로실행 안되게 화살표함수로 표시
-      너를클릭해.onclick = ()=>{
-        // 해당요소에 클릭이벤트가 발생하면 이 구역을 실행함
-        나야나함수('orange');
-      }; ///// onclik 함수 ///////
+      // 너를클릭해.onclick = ()=>{
+      //   // 해당요소에 클릭이벤트가 발생하면 이 구역을 실행함
+      //   나야나함수('orange');
+      // }; ///// onclik 함수 ///////
+
+
+      //////////// 햄버거 버튼 클릭시 메뉴 보이기 / 숨기기 ////////////
+      // 1.대상 선정
+      // 1-1. 이벤트 대상 : 햄버거 버튼 (.menu-btn)
+      let 햄버거 = document.querySelector('.menu-btn');
+
+      // 1.2. 변경 대상 : 상단영역(.top-area)
+      let 상단박스 = document.querySelector('.top-area')
+
+      // 2. 이벤트 함수 만들기
+      // 햄버거 클릭시 상단 박스 클래스 (.on) 넣기
+      햄버거.onclick = ()=>{
+
+        상단박스.classList.toggle('on');
+        // classList 객체는 클래스를 넣고 빼는 기능을 가짐
+        // add(클래스명) - 클래스넣기
+        // remove (클래스명) - 클래스빼기
+        // toggle(클래스명) - 클래스 넣기/빼기 전환
+
+      }; /////// 클릭 함수 ///////
+
+      
+      console.log('선택확인:',햄버거,상단박스)
+
+
+
+
+
+
+
+
+
 
 
 
