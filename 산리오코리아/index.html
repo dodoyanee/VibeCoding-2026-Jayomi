@@ -3,7 +3,7 @@
   <head>
     <title>산리오 코리아</title>
     <meta charset="UTF-8" />
-        <!-- 사이트 탭 옆 아이콘 (파비콘) 설정 방법 -->
+    <!-- 사이트 탭 옆 아이콘 (파비콘) 설정 방법 -->
     <link rel="icon" type="image/png" href="./images/icon_favicon.png" />
     <!-- 미디어쿼리를 위한 뷰포트 필수!!!
      줄임말 meta:vp -->
@@ -176,7 +176,7 @@
         border-radius: 50%;
         opacity: 0;
         /* 마우스휠 키프레임 호출 : 이시이지반방마 */
-        animation: mouse-dot-ani 1.0s linear infinite;
+        animation: mouse-dot-ani 1s linear infinite;
       }
       /* 마우스휠 애니메이션 키프레임 */
       @keyframes mouse-dot-ani {
@@ -569,6 +569,27 @@
         display: none;
       }
 
+      /* 모바일 메뉴 미리 셋팅하기 */
+      /* .top-area nav {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          box-sizing: border-box;
+          padding-top: 100px;
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+          transform: translateX(100%);
+          visibility: hidden;
+          transition:
+            transform 0.4s ease,
+            visibility 0s 0.4s;
+        } */
+
       /* ---------- 1199px 이하 ---------- */
       @media screen and (max-width: 1199px) {
         /* 1. 공통 컨테이너: 고정 너비 → 가로 꽉 참 + 좌우 14px 여백 */
@@ -643,6 +664,8 @@
         }
 
         /* 메뉴: 화면 전체를 덮는 흰색 패널, 오른쪽에서 슬라이드 */
+        /* 여기서 바깥으로 이동함 -> 이유는? 처음부터 셋팅이 필요함
+           사이즈 변경시 갑자기 화면에 나타났다가 오른쪽으로 사라짐! */
         .top-area nav {
           position: fixed;
           top: 0;
@@ -658,10 +681,21 @@
           z-index: 1;
           transform: translateX(100%);
           visibility: hidden;
-          transition:
+          /* 트랜지션(transition)을 처음부터 주면 메뉴 변경시 화면에 한번
+          보이므로 처음에 트랜지션을 주지 않는다. */
+          /* transition:
+            transform 0.4s ease,
+            visibility 0s 0.4s; */
+        }
+
+        /* 모바일용 메뉴를 위한 클래스 지정: transition 넣기
+           -> mob 클래스를 자바스크립트에서 작동시 넣어주면 된다! */
+        .top-area nav .mob {
+            transition:
             transform 0.4s ease,
             visibility 0s 0.4s;
         }
+
         .menu-open .top-area nav {
           transform: translateX(0);
           visibility: visible;
@@ -1411,25 +1445,71 @@
       </div>
     </footer>
     <script>
+
+      // 자바스크립트 안뇨옹
+      console.log('하이여');
+
+      // documnet는 전체 문서객체(DOM-Document Object Model)
+      // 점(.)은 객체의 하위 속성으로 들어감
+      // 요서 선택법 : querrySelector(CSS 선택자)
+      // -> querrySelector는 첫번째로 만난 요소 하나만 가져옴
+      // -> 참고로 여러 요소 선택은 querrySelectorAll(CSS 선택자)
+
+      // 변수(저장주소)
+      let 나야나 = document.querySelector('.top-area');
+      // 변수는 따옴표로 싸지 않는 문자다.
+      // 변수는 let으로 선언한다.
+      // 이퀄(=)은 오른쪾의 값이 왼쪽 변수에 할당되는 것.
+      // 변수는 왜 쓰나? 재사용!
+
+      console.log('나는 누구인가?', 나야나)
+
+      // 아래의 코드가 바로 실행하지 않고
+      // 호출시에만 실행하도록 하려면? 함수안에 넣어준다!
+      // 함수 이름을 호출할때 실행됨!
+
+      // function 함수명 (전달변수){코드}
+      // 화살표 함수가 유행
+      // 함수명 = ()=>{}
+      // let 함수담을변수 = (전달변수)=>{코드}
+
+      // const 는 상수 또는 함수를 담는 변수선언
+      // 보안상 let보다 const를 함수담을때 많이 씀.
+      
+      // const 나야나함수 = ()=>{};
+      const 나야나함수 = ()=>{
+      // 상단요소의 배경색 바꾸기
+      나야나.style.backgroundColor = 'red';
+      }; ///// 나야나 함수 /////
+
+      // 할당된 화살표 함수는 반드시 함수 아래쪽에서 호출해야함!
+      // 또는 이벤트 발생시엔 상관없음.
+
+      나야나함수();
+
+
+
+
+
       // 햄버거 메뉴 열고 닫기
-      const body = document.body;
-      const menuBtn = document.querySelector(".menu-btn");
-      function setMenu(open) {
-        body.classList.toggle("menu-open", open);
-        menuBtn.setAttribute("aria-expanded", open);
-        menuBtn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
-      }
-      menuBtn.addEventListener("click", () =>
-        setMenu(!body.classList.contains("menu-open")),
-      );
-      // 메뉴 항목 클릭 시 닫기
-      document
-        .querySelectorAll(".menu-list a")
-        .forEach((a) => a.addEventListener("click", () => setMenu(false)));
-      // PC 폭으로 돌아오면 닫기
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 1199) setMenu(false);
-      });
+      // const body = document.body;
+      // const menuBtn = document.querySelector(".menu-btn");
+      // function setMenu(open) {
+      //   body.classList.toggle("menu-open", open);
+      //   menuBtn.setAttribute("aria-expanded", open);
+      //   menuBtn.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      // }
+      // menuBtn.addEventListener("click", () =>
+      //   setMenu(!body.classList.contains("menu-open")),
+      // );
+      // // 메뉴 항목 클릭 시 닫기
+      // document
+      //   .querySelectorAll(".menu-list a")
+      //   .forEach((a) => a.addEventListener("click", () => setMenu(false)));
+      // // PC 폭으로 돌아오면 닫기
+      // window.addEventListener("resize", () => {
+      //   if (window.innerWidth > 1199) setMenu(false);
+      // });
     </script>
   </body>
 </html>
