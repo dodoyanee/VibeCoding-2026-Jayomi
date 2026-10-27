@@ -3,11 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <link rel="icon" type="image/png" href="./images/icon_favicon.png"> -->
 <title>한미그룹 2026년 하반기 공개채용</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
+
+  /* CSS 변수구역 */
+  /* :root{변수코드}
+  
+    1. 변수 설정 방법
+    --변수명: 값;
+    변수명은 케밥케이스로 주로 씀
+    (케밥케이스란? 마이너스 기호로 연결된 변수법)
+
+    2. 변수 호출방법
+    var(변수명)
+    쓰고 싶은 곳에 값으로 변수를 사용함
+  */
+
   :root {
     --red: #E60012;
     --red-light: #FF5D32;
@@ -48,12 +63,14 @@
     height: 100px;
     z-index: 10;
   }
+
   .header .inner {
     height: 100px;
     padding: 0 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* max-width: var(--container-width); */
   }
   .logo { display: block; width: 182px; height: 31px; flex: none; }
   .logo img { display: block; width: 182px; height: 31px; }
@@ -177,13 +194,15 @@
     letter-spacing: -0.4px;
   }
 
-  /* Visual stage (1440 x 900 reference coordinates) */
+  /* Visual stage: 1440 x 900 기준 좌표를 내부 박스 폭에 비례해 축소 */
   .mv-stage {
     position: absolute;
-    left: 0;
+    /* 마지막 캐릭터의 오른쪽 끝(1484.56px)이 화면 밖으로 나가지 않도록 보정 */
+    left: min(0px, calc((100vw - 100%) / 2 - 44.56 / 1440 * 100%));
     top: 50%;
-    width: 1440px;
-    height: 900px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1440 / 900;
     transform: translateY(-50%);
     z-index: 1;
     pointer-events: none;
@@ -191,31 +210,31 @@
   .mv-stage img, .mv-stage span { position: absolute; display: block; max-width: none; }
 
   .mv-ring-glow {
-    width: 663px; height: 663px;
-    left: 700px; top: 118px;
+    width: calc(663 / 1440 * 100%); height: calc(663 / 900 * 100%);
+    left: calc(700 / 1440 * 100%); top: calc(118 / 900 * 100%);
     border: 5px solid var(--white);
     border-radius: 500px;
     background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
     filter: blur(5px);
   }
   .mv-ring {
-    width: 553px; height: 553px;
-    left: 755px; top: 173px;
+    width: calc(553 / 1440 * 100%); height: calc(553 / 900 * 100%);
+    left: calc(755 / 1440 * 100%); top: calc(173 / 900 * 100%);
     border: 1px solid var(--white-50);
     border-radius: 500px;
   }
 
-  .mv-micro  { width: 289.52px; height: 221.76px; left: 862.4px;  top: 124.08px; }
-  .mv-char1  { width: 253.44px; height: 395.12px; left: 911.68px; top: 267.52px; }
-  .mv-char2  { width: 181.28px; height: 381.04px; left: 1133.44px; top: 265.76px; }
-  .mv-char3  { width: 216.48px; height: 262.24px; left: 836px;    top: 441.76px; }
-  .mv-char4  { width: 292.16px; height: 206.8px;  left: 1192.4px; top: 462.88px; }
+  .mv-micro  { width: calc(289.52 / 1440 * 100%); height: calc(221.76 / 900 * 100%); left: calc(862.4 / 1440 * 100%);  top: calc(124.08 / 900 * 100%); }
+  .mv-char1  { width: calc(253.44 / 1440 * 100%); height: calc(395.12 / 900 * 100%); left: calc(911.68 / 1440 * 100%); top: calc(267.52 / 900 * 100%); }
+  .mv-char2  { width: calc(181.28 / 1440 * 100%); height: calc(381.04 / 900 * 100%); left: calc(1133.44 / 1440 * 100%); top: calc(265.76 / 900 * 100%); }
+  .mv-char3  { width: calc(216.48 / 1440 * 100%); height: calc(262.24 / 900 * 100%); left: calc(836 / 1440 * 100%);    top: calc(441.76 / 900 * 100%); }
+  .mv-char4  { width: calc(292.16 / 1440 * 100%); height: calc(206.8 / 900 * 100%);  left: calc(1192.4 / 1440 * 100%); top: calc(462.88 / 900 * 100%); }
 
-  .mv-star1 { width: 17.6px;  height: 16.72px; left: 1018.16px; top: 209.44px; }
-  .mv-star2 { width: 22.88px; height: 23.76px; left: 836.88px;  top: 441.76px; }
-  .mv-star3a { width: 21.12px; height: 21.12px; left: 1411.52px; top: 447.04px; }
-  .mv-star3b { width: 34.32px; height: 35.2px;  left: 1429.12px; top: 404.8px; }
-  .mv-star4 { width: 23.76px; height: 24.64px; left: 1257.52px; top: 221.76px; }
+  .mv-star1 { width: calc(17.6 / 1440 * 100%);  height: calc(16.72 / 900 * 100%); left: calc(1018.16 / 1440 * 100%); top: calc(209.44 / 900 * 100%); }
+  .mv-star2 { width: calc(22.88 / 1440 * 100%); height: calc(23.76 / 900 * 100%); left: calc(836.88 / 1440 * 100%);  top: calc(441.76 / 900 * 100%); }
+  .mv-star3a { width: calc(21.12 / 1440 * 100%); height: calc(21.12 / 900 * 100%); left: calc(1411.52 / 1440 * 100%); top: calc(447.04 / 900 * 100%); }
+  .mv-star3b { width: calc(34.32 / 1440 * 100%); height: calc(35.2 / 900 * 100%);  left: calc(1429.12 / 1440 * 100%); top: calc(404.8 / 900 * 100%); }
+  .mv-star4 { width: calc(23.76 / 1440 * 100%); height: calc(24.64 / 900 * 100%); left: calc(1257.52 / 1440 * 100%); top: calc(221.76 / 900 * 100%); }
 
   /* Scroll button */
   .btn-scroll {
@@ -254,11 +273,6 @@
 
   /* ===== Responsive (Desktop First / max-width) ===== */
 
-  /* 데스크탑 1025~1439px: 1440 디자인을 우측 기준으로 축소 (기존 규칙 유지) */
-  @media (max-width: 1439px) {
-    .mv-stage { left: auto; right: 0; transform-origin: right center; transform: translateY(-50%) scale(0.8); }
-  }
-
   /* ----- Tablet : 1024px 이하 ----- */
   @media (max-width: 1024px) {
     .header { height: 90px; }
@@ -287,6 +301,9 @@
     .btn-cta { height: 64px; font-size: 20px; line-height: 30px; }
 
     .mv-stage {
+      /* 태블릿·모바일은 기존 1440 x 900 좌표와 축소 배율 유지 */
+      width: 1440px;
+      height: 900px;
       left: calc(50% - 1160px);
       right: auto;
       top: calc(var(--mv-top) - 124px);
