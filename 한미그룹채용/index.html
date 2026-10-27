@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- <link rel="icon" type="image/png" href="./images/icon_favicon.png"> -->
-<title>한미그룹 2026년 하반기 공개채용</title>
+<title>Hanmi 지영그룹</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@500;700;800;900&display=swap" rel="stylesheet">
@@ -402,6 +402,116 @@
     .btn-scroll { width: 40px; height: 40px; bottom: 16px; }
     .btn-scroll svg { width: 24px; height: 24px; }
   }
+  /* ===== Mirae ===== */
+  .main-mirae {
+    position: relative;
+    height: clamp(760px, 66.28vw, 960px);
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFF8F6 28%, #FFE6E0 100%);
+  }
+  .main-mirae > .inner {
+    position: relative;
+    height: 100%;
+    /* 구름은 기존 .inner의 최대 폭과 관계없이 화면 가장자리에 배치 */
+    max-width: none;
+  }
+  .mirae-title {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    max-width: calc(100% - 40px);
+    margin: 0 auto;
+    padding-top: clamp(160px, 13.89vw, 200px);
+    font-size: clamp(54px, 4.94vw, 72px);
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: -0.06em;
+    text-align: center;
+    word-break: keep-all;
+    color: var(--red);
+  }
+  /* 텍스트 클리핑 미지원 환경에서는 빨간색 텍스트로 표시 */
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    .mirae-title {
+      background: linear-gradient(90deg, var(--red) 0%, var(--red-light) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+  .mirae-stage {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .mirae-stage img {
+    position: absolute;
+    display: block;
+    height: auto;
+    max-width: none;
+  }
+  .mirae-character {
+    top: 40.16%;
+    left: 50%;
+    width: min(54.02%, 800px);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .mirae-cloud1 { width: min(27.78%, 400px); left: 4.5%; top: 18%; filter: blur(6px); opacity: 0.9; }
+  .mirae-cloud2 { width: min(11.19%, 160px); right: 16.8%; top: 64.5%; filter: blur(4px); }
+  .mirae-cloud3 { width: min(14.66%, 211px); left: 0; top: 53.1%; }
+  .mirae-cloud4 { width: min(24.31%, 350px); right: 0; top: 26.9%; }
+  .mirae-star1 { width: min(2.78%, 40px); left: 56.6%; top: 37.6%; z-index: 2; }
+  .mirae-star2 { width: min(3.86%, 56px); left: 37.1%; top: 70.8%; z-index: 2; }
+
+  /* ----- Tablet : 1199px 이하 (이 섹션에만 적용) ----- */
+  @media (max-width: 1199px) {
+    .main-mirae { height: clamp(620px, 68.26vw, 820px); }
+    .mirae-title {
+      padding-top: clamp(112px, 13.49vw, 160px);
+      font-size: clamp(32px, 4.14vw, 48px);
+      background: none;
+      color: var(--black);
+    }
+    .mirae-title .emphasis { color: var(--red); }
+    .mirae-character { width: 40.92%; top: 56.13%; }
+    .mirae-cloud1 { width: 22.03%; left: 15%; top: 40%; filter: blur(5px); }
+    .mirae-cloud2 { width: 8.63%; right: 24.3%; top: 74.5%; filter: blur(3px); }
+    .mirae-cloud3 { width: 10.79%; top: 65.75%; }
+    .mirae-cloud4 { width: 17.99%; top: 46.5%; }
+    .mirae-star1 { width: 2.16%; left: 55%; top: 54.3%; }
+    .mirae-star2 { width: 3.06%; left: 40.5%; top: 78.5%; }
+  }
+
+  /* ----- Mobile : 800px 이하 / 390px 화면에서 약 425px 높이 ----- */
+  @media (max-width: 800px) {
+    .main-mirae { height: max(360px, 108.97vw); }
+    .mirae-title {
+      max-width: calc(100% - 32px);
+      padding-top: 16.4vw;
+      font-size: clamp(24px, 7.55vw, 60px);
+      color: var(--red);
+    }
+    .mirae-title .emphasis { color: inherit; }
+    .mirae-character { width: 61.54%; top: 59.06%; }
+    .mirae-cloud1 { width: 33.33%; left: 7.8%; top: 28.8%; filter: blur(4px); }
+    .mirae-cloud2 { width: 15.38%; right: 5.5%; top: 65.8%; filter: blur(2px); }
+    .mirae-cloud3 { width: 24.1%; top: 52.2%; }
+    .mirae-cloud4 { width: 35.9%; top: 30.35%; }
+    .mirae-star1 { width: 2.82%; left: 58.5%; top: 55.9%; }
+    .mirae-star2 { width: 4.62%; left: 36.8%; top: 78.1%; }
+    @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+      .mirae-title {
+        background: linear-gradient(90deg, var(--red) 0%, var(--red-light) 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -475,6 +585,22 @@
       <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M12 16l8 8 8-8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
   </section>
+  <section class="main-mirae" id="mirae" aria-labelledby="mirae-title">
+    <div class="inner">
+      <h2 class="mirae-title" id="mirae-title"><span class="emphasis">새로운 미래</span>를 향해 나아갑니다</h2>
+
+      <div class="mirae-stage">
+        <img class="mirae-cloud1" src="images/mirae_cloud_01.png" alt="왼쪽 위 멀리 떠 있는 흐릿한 흰 구름" width="866" height="460" aria-hidden="true" decoding="async">
+        <img class="mirae-cloud2" src="images/mirae_cloud_02.png" alt="오른쪽 아래 멀리 떠 있는 작은 흰 구름" width="378" height="200" aria-hidden="true" decoding="async">
+        <img class="mirae-cloud3" src="images/mirae_cloud_03.png" alt="화면 왼쪽 가장자리에 걸쳐 있는 흰 구름" width="422" height="320" aria-hidden="true" decoding="async">
+        <img class="mirae-cloud4" src="images/mirae_cloud_04.png" alt="화면 오른쪽 위에 크게 떠 있는 흰 구름" width="700" height="520" aria-hidden="true" decoding="async">
+        <img class="mirae-character" src="images/mirae_run_39.png" alt="사원증을 목에 걸고 초록색 지구 위를 달리는 파란색 캡슐 캐릭터" width="951" height="793" decoding="async">
+        <img class="mirae-star1" src="images/mirae_star_01.png" alt="캐릭터 오른쪽 위에서 반짝이는 노란 별" width="80" height="84" aria-hidden="true" decoding="async">
+        <img class="mirae-star2" src="images/mirae_star_02.png" alt="캐릭터 왼쪽 발치에서 반짝이는 노란 별" width="125" height="126" aria-hidden="true" decoding="async">
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer">
