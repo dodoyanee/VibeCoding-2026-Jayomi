@@ -72,6 +72,9 @@
 
   .gnb-apply { padding-left: 40px; }
 
+  /* 모바일 전용 요소 (데스크탑·태블릿에서는 숨김) */
+  .header-m, .btn-close { display: none; }
+
   /* ===== Buttons ===== */
   .btn-apply {
     display: inline-flex;
@@ -249,22 +252,138 @@
     overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
   }
 
-  /* ===== Responsive (콘텐츠 1440 미만) ===== */
+  /* ===== Responsive (Desktop First / max-width) ===== */
+
+  /* 데스크탑 1025~1439px: 1440 디자인을 우측 기준으로 축소 (기존 규칙 유지) */
   @media (max-width: 1439px) {
     .mv-stage { left: auto; right: 0; transform-origin: right center; transform: translateY(-50%) scale(0.8); }
   }
-  @media (max-width: 1100px) {
-    .gnb-list { display: none; }
-    .gnb-apply { padding-left: 0; }
-    .mv-text { left: 40px; }
-    .mv-stage { opacity: 0.35; }
+
+  /* ----- Tablet : 1024px 이하 ----- */
+  @media (max-width: 1024px) {
+    .header { height: 90px; }
+    .header .inner { height: 90px; padding: 0 clamp(28px, 4vw, 40px); }
+    .logo, .logo img { width: 160px; height: 27px; }
+
+    .gnb, .gnb-list, .gnb-list li { height: 90px; }
+    .gnb-list { gap: clamp(16px, 2.5vw, 30px); }
+    .gnb-list a { font-size: clamp(15px, 2vw, 17px); }
+    .gnb-apply { padding-left: clamp(16px, 2.5vw, 30px); }
+    .btn-apply { height: 44px; padding: 0 18px; font-size: 16px; }
+
+    /* 히어로: 텍스트 위 / 비주얼 아래 세로 배치 (스테이지는 기준점(1160,124)을 중심으로 축소) */
+    .main-visual {
+      --mv-top: 478px;     /* 캐릭터 상단 y */
+      --mv-scale: 0.7;     /* 스테이지 축소 비율 */
+      --mv-bottom: 110px;  /* 캐릭터 하단 ~ 섹션 하단 여백 */
+      height: calc(var(--mv-top) + 580px * var(--mv-scale) + var(--mv-bottom));
+      min-height: 0;
+    }
+    .mv-text { position: relative; left: auto; top: auto; transform: none; width: auto; padding: 100px 40px 0; gap: 40px; }
+    .mv-info { gap: 20px; }
+    .mv-season { font-size: 27px; line-height: 38px; letter-spacing: -0.56px; }
+    .mv-title .emphasis { font-size: 56px; line-height: 64px; letter-spacing: -1.36px; }
+    .mv-title .sub { font-size: 36px; line-height: 52px; letter-spacing: -0.88px; }
+    .btn-cta { height: 64px; font-size: 20px; line-height: 30px; }
+
+    .mv-stage {
+      left: calc(50% - 1160px);
+      right: auto;
+      top: calc(var(--mv-top) - 124px);
+      transform: scale(var(--mv-scale));
+      transform-origin: 1160px 124px;
+    }
+
+    .btn-scroll { width: 64px; height: 64px; bottom: 36px; }
+    .btn-scroll svg { width: 32px; height: 32px; }
   }
-  @media (max-width: 640px) {
-    .header .inner { padding: 0 20px; }
-    .mv-text { left: 20px; right: 20px; width: auto; gap: 48px; }
-    .mv-title .emphasis { font-size: 52px; line-height: 60px; }
-    .mv-title .sub { font-size: 34px; line-height: 52px; }
-    .btn-cta { width: 260px; height: 60px; font-size: 19px; }
+
+  /* ----- 헤더 공간 확보: 767px 이하부터 햄버거 메뉴 (391~767px 구간 헤더 넘침 방지) ----- */
+  @media (max-width: 767px) {
+    .main-visual { --mv-scale: 0.6; }
+
+    .header { height: 64px; }
+    .header .inner { height: 64px; padding: 0 20px; }
+    .logo, .logo img { width: 130px; height: 22px; }
+
+    /* 헤더 우측: 지원하기 + 햄버거 */
+    .header-m { display: flex; align-items: center; }
+    .header-m .btn-apply { height: 32px; padding: 0 12px; font-size: 12px; line-height: 18px; letter-spacing: -0.26px; }
+    .btn-menu, .btn-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--black);
+    }
+    .btn-menu { margin-right: -10px; }
+    .btn-menu svg, .btn-close svg { width: 24px; height: 24px; }
+
+    /* 전체 메뉴: 오른쪽에서 슬라이드 */
+    .gnb {
+      position: fixed;
+      top: 0; right: 0;
+      z-index: 20;
+      display: block;
+      width: 100%;
+      height: 100vh;
+      height: 100dvh;
+      padding-top: 64px;
+      background: var(--white);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform 0.35s ease, visibility 0s linear 0.35s;
+    }
+    .gnb.is-open {
+      transform: translateX(0);
+      visibility: visible;
+      transition: transform 0.35s ease, visibility 0s;
+    }
+    .gnb::before {   /* 메뉴 상단 로고 (헤더 로고와 동일 위치) */
+      content: "";
+      position: absolute;
+      top: 0; left: 20px;
+      width: 130px; height: 64px;
+      background: url('./images/logo.svg') left center / 130px 22px no-repeat;
+    }
+    .gnb::after {    /* 우측 하단 캐릭터 */
+      content: "";
+      position: absolute;
+      right: 12px; bottom: 0;
+      width: 140px; height: 144px;
+      background: url('./images/mo_menu_char.png') center bottom / contain no-repeat;
+      pointer-events: none;
+    }
+    .btn-close { position: absolute; top: 10px; right: 10px; }
+
+    .gnb-list { display: block; height: auto; margin: 32px 20px 0; }
+    .gnb-list li { display: block; height: auto; border-bottom: 1px solid #E5E5E5; }
+    .gnb-list a { display: block; padding: 16px 0; font-size: 18px; line-height: 26px; }
+    .gnb-apply { padding: 36px 20px 0; }
+    .gnb-apply .btn-apply { display: flex; width: 100%; height: 48px; font-size: 17.4px; }
+
+    body.is-menu-open { overflow: hidden; }
+  }
+
+  /* ----- Mobile : 390px 이하 ----- */
+  @media (max-width: 390px) {
+    .main-visual { --mv-top: 454px; --mv-scale: 0.5; --mv-bottom: 54px; }
+
+    .mv-text { padding: 100px 20px 0; gap: 52px; }
+    .mv-season { font-size: 20px; line-height: 30px; letter-spacing: -0.42px; }
+    .mv-title .emphasis { font-size: 54px; line-height: 62px; letter-spacing: -1.32px; }
+    .mv-title .sub { font-size: 35px; line-height: 50px; letter-spacing: -0.86px; }
+    .mv-period { font-size: 12.5px; line-height: 20px; letter-spacing: -0.26px; }
+    .btn-cta { width: 200px; height: 48px; padding: 0; font-size: 15px; line-height: 24px; }
+
+    .btn-scroll { width: 40px; height: 40px; bottom: 16px; }
+    .btn-scroll svg { width: 24px; height: 24px; }
   }
 </style>
 </head>
@@ -275,7 +394,10 @@
     <a href="./" class="logo" aria-label="Hanmi 한미그룹 홈">
       <img src="./images/logo.svg" alt="Hanmi 한미그룹" width="182" height="31">
     </a>
-    <nav class="gnb" aria-label="주요 메뉴">
+    <nav class="gnb" id="gnb" aria-label="주요 메뉴">
+      <button type="button" class="btn-close" aria-label="전체 메뉴 닫기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
       <ul class="gnb-list">
         <li><a href="#jobs">직무소개</a></li>
         <li><a href="#qualification">지원자격 및 접수방법</a></li>
@@ -288,6 +410,12 @@
         </a>
       </div>
     </nav>
+    <div class="header-m">
+      <a href="#apply" class="btn-apply">지원하기</a>
+      <button type="button" class="btn-menu" aria-label="전체 메뉴 열기" aria-controls="gnb" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -332,6 +460,10 @@
   </section>
 </main>
 
+<footer class="footer">
+  <!-- 하단 푸터 콘텐츠 영역 -->
+</footer>
+
 <script>
   (function () {
     var btn = document.getElementById('scrollDown');
@@ -341,6 +473,47 @@
         window.scrollTo({ top: visual.offsetHeight, behavior: 'smooth' });
       });
     }
+  })();
+
+  /* 모바일 전체 메뉴 */
+  (function () {
+    var gnb = document.getElementById('gnb');
+    var btnOpen = document.querySelector('.btn-menu');
+    var btnClose = document.querySelector('.btn-close');
+    if (!gnb || !btnOpen || !btnClose) return;
+
+    var mq = window.matchMedia('(max-width: 767px)');
+
+    function setMenu(open, moveFocus) {
+      gnb.classList.toggle('is-open', open);
+      document.body.classList.toggle('is-menu-open', open);
+      btnOpen.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (moveFocus) (open ? btnClose : btnOpen).focus({ preventScroll: true });
+    }
+
+    btnOpen.addEventListener('click', function () { setMenu(true, true); });
+    btnClose.addEventListener('click', function () { setMenu(false, true); });
+
+    // 메뉴 링크 클릭 시 닫기 (앵커 이동 전에 스크롤 잠금 해제)
+    gnb.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setMenu(false, false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!gnb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { setMenu(false, true); return; }
+      if (e.key !== 'Tab') return;
+      // 열린 메뉴 안에서 포커스 순환
+      var items = gnb.querySelectorAll('a[href], button');
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+
+    // 화면이 넓어지면 열린 상태 초기화 (스크롤 잠금 해제)
+    function onChange(e) { if (!e.matches) setMenu(false, false); }
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else mq.addListener(onChange);
   })();
 </script>
 </body>
