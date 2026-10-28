@@ -7,10 +7,10 @@
     <title>Hanmi 지영그룹</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- prettier-ignore -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Noto+Sans+KR:wght@500;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet" />
     <style>
       /* CSS 변수구역 */
       /* :root{변수코드}
@@ -1911,32 +1911,369 @@
           transform: none;
         }
       }
+
+      /* ===== Innovation (성장 및 혁신 소식) ===== */
+      .innovation {
+        /* 디바이스별 차이는 아래 변수값만 교체 (Tablet / Mobile 미디어쿼리 참고) */
+        --i-pt: clamp(110px, 9vw, 130px);
+        --i-pb: clamp(130px, 11vw, 160px);
+        --i-side: clamp(28px, 4vw, 60px);
+
+        --i-title: clamp(30px, 3.6vw, 52px);
+        --i-title-lh: 1.4;
+        --i-sub: clamp(15px, 1.25vw, 18px);
+        --i-sub-gap: 28px;
+        --i-head-gap: clamp(48px, 5vw, 72px);
+
+        --i-card-pad-y: clamp(36px, 3.6vw, 52px);
+        --i-card-pad-x: clamp(24px, 3.3vw, 48px);
+        --i-card-r: 28px;
+        --i-list-gap: clamp(20px, 2.2vw, 32px);
+
+        --i-bubble-px: 28px;
+        --i-bubble-py: 22px;
+        --i-bubble-r: 20px;
+        --i-bubble-text: clamp(15px, 1.3vw, 19px);
+        --i-bubble-lh: 1.55;
+        --i-tail: 12px; /* 말풍선 꼬리가 몸통 밖으로 나온 폭 */
+
+        --i-hint-gap: 32px;
+        --i-hint: 14px;
+
+        position: relative;
+        overflow: hidden; /* 장식이 화면 밖으로 나가도 가로 스크롤 방지 */
+        isolation: isolate;
+        padding: var(--i-pt) 0 var(--i-pb);
+        background: #fff5f2;
+      }
+
+      /* 배경 그라데이션 장식 (가상요소) */
+      .innovation::before,
+      .innovation::after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at center,
+          var(--red) 0%,
+          rgba(230, 0, 18, 0) 70%
+        );
+        pointer-events: none;
+      }
+      .innovation::before {
+        /* 우측 상단: 30vw 정사각형, 60%만 화면 안에 노출 (40% = 12vw 바깥) */
+        width: 30vw;
+        right: -12vw;
+        top: -8vw;
+        opacity: 0.1;
+      }
+      .innovation::after {
+        /* 좌측 하단: 20vw 정사각형 */
+        width: 20vw;
+        left: -8vw;
+        bottom: -8vw;
+        opacity: 0.2;
+      }
+
+      .innovation-inner {
+        position: relative;
+        max-width: var(--container);
+        margin: 0 auto;
+        padding: 0 var(--i-side);
+      }
+
+      /* Head */
+      .innovation-head {
+        text-align: center;
+      }
+      .innovation-title {
+        font-size: var(--i-title);
+        font-weight: 800;
+        line-height: var(--i-title-lh);
+        letter-spacing: -0.04em;
+      }
+      .innovation-title span {
+        display: block;
+      }
+      .innovation-sub {
+        margin-top: var(--i-sub-gap);
+        font-size: var(--i-sub);
+        font-weight: 500;
+        line-height: 1.5;
+        letter-spacing: -0.03em;
+      }
+
+      /* Card */
+      .innovation-card {
+        position: relative;
+        max-width: 1200px;
+        margin: var(--i-head-gap) auto 0;
+        padding: var(--i-card-pad-y) var(--i-card-pad-x);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: var(--i-card-r);
+        background: rgba(254, 247, 245, 0.85);
+        box-shadow: 0 8px 32px rgba(255, 93, 50, 0.08);
+      }
+
+      .innovation-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--i-list-gap);
+        position: relative;
+        z-index: 1;
+      }
+      .innovation-item {
+        display: flex;
+      }
+      .innovation-item--red {
+        justify-content: flex-start;
+        padding-left: var(--i-tail);
+      }
+      .innovation-item--white {
+        justify-content: flex-end;
+        padding-right: var(--i-tail);
+      }
+
+      /* Bubble: 배경과 꼬리는 인라인 SVG, 텍스트가 늘어나면 SVG도 함께 늘어남 */
+      .bubble {
+        position: relative;
+        display: block;
+        max-width: 100%;
+        padding: var(--i-bubble-py) var(--i-bubble-px);
+        font-size: var(--i-bubble-text);
+        font-weight: 700;
+        line-height: var(--i-bubble-lh);
+        letter-spacing: -0.04em;
+        isolation: isolate;
+        filter: drop-shadow(0 2px 6px rgba(255, 93, 50, 0.12));
+        transition: transform 0.25s ease, filter 0.25s ease;
+      }
+      .bubble:hover,
+      .bubble:focus-visible {
+        transform: translateY(-3px);
+        filter: drop-shadow(0 8px 14px rgba(255, 93, 50, 0.22));
+      }
+      .bubble:focus-visible {
+        outline: 2px solid var(--red);
+        outline-offset: 4px;
+        border-radius: var(--i-bubble-r);
+      }
+      .bubble--red {
+        color: var(--white);
+        --bubble-fill: var(--red-light);
+      }
+      .bubble--white {
+        color: var(--red-light);
+        --bubble-fill: var(--white);
+      }
+      .bubble-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        pointer-events: none;
+      }
+      /* 단위를 지정하지 않은 SVG(viewBox 없음)는 늘어나도 모서리가 왜곡되지 않음 */
+      .bubble-bg rect {
+        fill: var(--bubble-fill);
+        rx: var(--i-bubble-r); /* 속성 rx="20"은 미지원 환경용 대체값 */
+        ry: var(--i-bubble-r);
+      }
+      .bubble-tail {
+        position: absolute;
+        bottom: 0;
+        /* 몸통의 둥근 모서리(반경)까지 덮어 꼬리와 몸통을 하나로 이어줌 */
+        width: calc(var(--i-tail) + var(--i-bubble-r));
+        height: var(--i-bubble-r);
+        overflow: visible;
+      }
+      .bubble-tail path {
+        fill: var(--bubble-fill);
+      }
+      .bubble--red .bubble-tail {
+        left: calc(-1 * var(--i-tail));
+      }
+      .bubble--white .bubble-tail {
+        right: calc(-1 * var(--i-tail));
+        transform: scaleX(-1); /* 꼬리를 오른쪽으로 반전 */
+      }
+      .bubble-line {
+        display: block;
+      }
+
+      .innovation-hint {
+        position: relative;
+        z-index: 1;
+        margin-top: var(--i-hint-gap);
+        padding-right: 8px;
+        font-size: var(--i-hint);
+        font-weight: 500;
+        letter-spacing: -0.03em;
+        color: #555;
+        text-align: right;
+      }
+      .innovation-hint::before {
+        content: "";
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        margin-right: 8px;
+        border-radius: 50%;
+        background: var(--red-light);
+        vertical-align: middle;
+      }
+
+      /* Decoration */
+      .innovation-deco {
+        position: absolute;
+        display: block;
+        height: auto;
+        max-width: none;
+        pointer-events: none;
+      }
+      .innovation-formula {
+        width: clamp(160px, 20vw, 290px);
+        right: 0;
+        top: calc(clamp(160px, 20vw, 290px) * -0.2);
+        z-index: 0;
+      }
+      .innovation-atom {
+        width: clamp(90px, 10.4vw, 150px);
+        right: 4%;
+        top: calc(clamp(90px, 10.4vw, 150px) * -0.55);
+        z-index: 2;
+      }
+      .innovation-molecule {
+        width: clamp(80px, 9.7vw, 140px);
+        left: -2%;
+        bottom: calc(clamp(80px, 9.7vw, 140px) * -0.7);
+        z-index: 2;
+      }
+
+      /* ----- Tablet : 1024px 이하 ----- */
+      @media (max-width: 1024px) {
+        .innovation {
+          --i-pt: 100px;
+          --i-pb: 140px;
+          --i-side: clamp(28px, 3.8vw, 40px);
+          --i-title: clamp(28px, 4.2vw, 36px);
+          --i-sub: clamp(14px, 1.9vw, 16px);
+          --i-sub-gap: 22px;
+          --i-head-gap: 56px;
+          --i-card-r: 24px;
+          --i-bubble-px: 24px;
+          --i-bubble-py: 18px;
+          --i-bubble-r: 18px;
+          --i-bubble-text: clamp(14px, 2vw, 16px);
+          --i-tail: 10px;
+          --i-hint-gap: 28px;
+        }
+        .innovation-formula {
+          width: 190px;
+          top: -38px;
+          right: -4px;
+        }
+        .innovation-atom {
+          width: 100px;
+          right: 5%;
+          top: -52px;
+        }
+        .innovation-molecule {
+          width: 90px;
+          left: 1%;
+          bottom: -58px;
+        }
+      }
+
+      /* ----- Mobile : 767px 이하 ----- */
+      @media (max-width: 767px) {
+        .innovation {
+          --i-pt: 72px;
+          --i-pb: 100px;
+          --i-side: 20px;
+          --i-title: clamp(22px, 6.2vw, 28px);
+          --i-sub: clamp(13px, 3.6vw, 15px);
+          --i-sub-gap: 18px;
+          --i-head-gap: 40px;
+          --i-card-pad-y: 20px;
+          --i-card-pad-x: 14px;
+          --i-card-r: 20px;
+          --i-list-gap: 12px;
+          --i-bubble-px: 18px;
+          --i-bubble-py: 14px;
+          --i-bubble-r: 16px;
+          --i-bubble-text: clamp(13px, 3.6vw, 15px);
+          --i-bubble-lh: 1.5;
+          --i-tail: 8px;
+          --i-hint-gap: 20px;
+          --i-hint: 12px;
+        }
+        .innovation::before {
+          width: 60vw;
+          right: -24vw;
+          top: -20vw;
+        }
+        .innovation::after {
+          width: 44vw;
+          left: -18vw;
+          bottom: -18vw;
+        }
+        .innovation-sub {
+          max-width: 21em;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        /* 모바일: 좌우 교차 없이 폭을 가득 채움 */
+        .innovation-item--red,
+        .innovation-item--white {
+          justify-content: stretch;
+        }
+        .bubble {
+          width: 100%;
+        }
+        .innovation-formula {
+          width: 120px;
+          top: -26px;
+          right: 0;
+        }
+        .innovation-atom {
+          width: 72px;
+          right: 6%;
+          top: -40px;
+        }
+        .innovation-molecule {
+          width: 64px;
+          left: 2%;
+          bottom: -42px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bubble {
+          transition: none;
+        }
+        .bubble:hover,
+        .bubble:focus-visible {
+          transform: none;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- prettier-ignore -->
     <header class="header">
       <div class="inner">
         <a href="./" class="logo" aria-label="Hanmi 한미그룹 홈">
-          <img
-            src="./images/logo.svg"
-            alt="Hanmi 한미그룹"
-            width="182"
-            height="31"
-          />
+          <img src="./images/logo.svg" alt="Hanmi 한미그룹" width="182" height="31" />
         </a>
         <nav class="gnb" id="gnb" aria-label="주요 메뉴">
           <button type="button" class="btn-close" aria-label="전체 메뉴 닫기">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                d="M5 5l14 14M19 5L5 19"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M5 5l14 14M19 5L5 19" stroke-width="1.6" stroke-linecap="round" />
             </svg>
           </button>
           <ul class="gnb-list">
@@ -1952,8 +2289,7 @@
                   d="M1 1l5 5-5 5"
                   stroke-width="2"
                   stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                  stroke-linejoin="round" />
               </svg>
             </a>
           </div>
@@ -1965,19 +2301,9 @@
             class="btn-menu"
             aria-label="전체 메뉴 열기"
             aria-controls="gnb"
-            aria-expanded="false"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 6h18M3 12h18M3 18h18"
-                stroke-width="1.6"
-                stroke-linecap="round"
-              />
+            aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke-width="1.6" stroke-linecap="round" />
             </svg>
           </button>
         </div>
@@ -1985,11 +2311,8 @@
     </header>
 
     <main>
-      <section
-        class="main-visual"
-        id="main_visual"
-        aria-label="2026년 하반기 한미그룹 공개채용"
-      >
+      <!-- prettier-ignore -->
+      <section class="main-visual" id="main_visual" aria-label="2026년 하반기 한미그룹 공개채용">
         <div class="inner">
           <!-- 캐릭터/장식 스테이지 -->
           <div class="mv-stage" aria-hidden="true">
@@ -2015,30 +2338,23 @@
                 <span class="emphasis">한미그룹</span>
                 <span class="sub">공개채용</span>
               </h1>
-              <p class="mv-period">
-                모집기간 : 2026.9.28(월) ~ 2026.10.18(일) 23:59까지
-              </p>
+              <p class="mv-period">모집기간 : 2026.9.28(월) ~ 2026.10.18(일) 23:59까지</p>
             </div>
             <a href="#jobs" class="btn-cta">모집직무 바로가기!</a>
           </div>
         </div>
 
-        <button
-          type="button"
-          class="btn-scroll"
-          id="scrollDown"
-          aria-label="아래로 스크롤"
-        >
+        <button type="button" class="btn-scroll" id="scrollDown" aria-label="아래로 스크롤">
           <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <path
               d="M12 16l8 8 8-8"
               stroke-width="3"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+              stroke-linejoin="round" />
           </svg>
         </button>
       </section>
+      <!-- prettier-ignore -->
       <section class="main-mirae" id="mirae" aria-labelledby="mirae-title">
         <div class="inner">
           <h2 class="mirae-title" id="mirae-title">
@@ -2053,8 +2369,7 @@
               width="866"
               height="460"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-cloud2"
               src="images/mirae_cloud_02.png"
@@ -2062,8 +2377,7 @@
               width="378"
               height="200"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-cloud3"
               src="images/mirae_cloud_03.png"
@@ -2071,8 +2385,7 @@
               width="422"
               height="320"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-cloud4"
               src="images/mirae_cloud_04.png"
@@ -2080,16 +2393,14 @@
               width="700"
               height="520"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-character"
               src="./images/run_19.png"
               alt="사원증을 목에 걸고 초록색 지구 위를 달리는 파란색 캡슐 캐릭터"
               width="951"
               height="793"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-star1"
               src="images/mirae_star_01.png"
@@ -2097,8 +2408,7 @@
               width="80"
               height="84"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
             <img
               class="mirae-star2"
               src="images/mirae_star_02.png"
@@ -2106,18 +2416,14 @@
               width="125"
               height="126"
               aria-hidden="true"
-              decoding="async"
-            />
+              decoding="async" />
           </div>
         </div>
       </section>
 
       <!-- ===== History : #mirae 섹션 바로 다음 (</main> 앞)에 삽입 ===== -->
-      <section
-        class="main-history"
-        id="history"
-        aria-labelledby="history-title"
-      >
+      <!-- prettier-ignore -->
+      <section class="main-history" id="history" aria-labelledby="history-title">
         <div class="history-clip" id="history-clip">
           <div class="history-body">
             <!-- 장식 (데스크탑 전용 / 태블릿 이하에서는 컨테이너째 숨김) -->
@@ -2129,8 +2435,7 @@
                 width="240"
                 height="300"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-beaker"
                 src="images/obj_beaker.png"
@@ -2138,8 +2443,7 @@
                 width="240"
                 height="300"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-hexblue"
                 src="images/obj_mol_blur1.png"
@@ -2147,8 +2451,7 @@
                 width="420"
                 height="460"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-microscope"
                 src="images/obj_microscope.png"
@@ -2156,8 +2459,7 @@
                 width="240"
                 height="300"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-hexgray"
                 src="images/obj_mol_blur2.png"
@@ -2165,8 +2467,7 @@
                 width="340"
                 height="370"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-molecule"
                 src="images/obj_mol_big.png"
@@ -2174,8 +2475,7 @@
                 width="237"
                 height="300"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-shadow"
                 src="images/cloud_blur_medium.png"
@@ -2183,8 +2483,7 @@
                 width="375"
                 height="240"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
               <img
                 class="history-char"
                 src="images/con2_char.png"
@@ -2192,8 +2491,7 @@
                 width="360"
                 height="480"
                 loading="lazy"
-                decoding="async"
-              />
+                decoding="async" />
             </div>
 
             <div class="inner">
@@ -2205,9 +2503,7 @@
                 </h2>
                 <p class="history-num">
                   <span class="sr-only">창립 53주년</span>
-                  <span aria-hidden="true"
-                    >53<span class="history-th">th</span></span
-                  >
+                  <span aria-hidden="true">53<span class="history-th">th</span></span>
                 </p>
               </div>
 
@@ -2228,15 +2524,11 @@
                       </li>
                       <li>
                         <time class="history-year" datetime="1989">1989</time>
-                        <p class="history-desc">
-                          세프트리악손 제조방법 Roche사 기술 수출
-                        </p>
+                        <p class="history-desc">세프트리악손 제조방법 Roche사 기술 수출</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="1997">1997</time>
-                        <p class="history-desc">
-                          마이크로에멀젼 제제기술 Novartis사 기술 수출
-                        </p>
+                        <p class="history-desc">마이크로에멀젼 제제기술 Novartis사 기술 수출</p>
                       </li>
                     </ul>
                   </div>
@@ -2247,8 +2539,7 @@
                       width="750"
                       height="403"
                       loading="lazy"
-                      decoding="async"
-                    />
+                      decoding="async" />
                   </figure>
                 </li>
 
@@ -2258,28 +2549,19 @@
                     <ul class="history-events">
                       <li>
                         <time class="history-year" datetime="2004">2004</time>
-                        <p class="history-desc">
-                          국내 최초 고혈압치료제 '아모디핀' 미국특허 획득
-                        </p>
+                        <p class="history-desc">국내 최초 고혈압치료제 '아모디핀' 미국특허 획득</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2006">2006</time>
-                        <p class="history-desc">
-                          세계 최초 유소아 해열 시럽제 개량신약 '맥시부펜' 개발
-                          성공
-                        </p>
+                        <p class="history-desc">세계 최초 유소아 해열 시럽제 개량신약 '맥시부펜' 개발 성공</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2008">2008</time>
-                        <p class="history-desc">
-                          국내 최초 주사용항생제 세프트리악손 美 FDA 승인
-                        </p>
+                        <p class="history-desc">국내 최초 주사용항생제 세프트리악손 美 FDA 승인</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2009">2009</time>
-                        <p class="history-desc">
-                          세계최초 암로디핀+로살탄 복합제 '아모잘탄' 발매
-                        </p>
+                        <p class="history-desc">세계최초 암로디핀+로살탄 복합제 '아모잘탄' 발매</p>
                       </li>
                     </ul>
                   </div>
@@ -2290,48 +2572,34 @@
                       width="830"
                       height="600"
                       loading="lazy"
-                      decoding="async"
-                    />
+                      decoding="async" />
                   </figure>
                 </li>
 
                 <li class="history-item">
                   <h3 class="history-period">2011~2015</h3>
                   <div class="history-info">
-                    <p class="history-slogan">
-                      새로운 가능성이 현실이 되었어요.
-                    </p>
+                    <p class="history-slogan">새로운 가능성이 현실이 되었어요.</p>
                     <ul class="history-events">
                       <li>
                         <time class="history-year" datetime="2011">2011</time>
-                        <p class="history-desc">
-                          MSD와 '아모잘탄' 50여개국 수출 계약 체결
-                        </p>
+                        <p class="history-desc">MSD와 '아모잘탄' 50여개국 수출 계약 체결</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2012">2012</time>
-                        <p class="history-desc">
-                          'LAPS-GCSF' 美 스펙트럼사와 공동개발 및 상업화 계약
-                        </p>
+                        <p class="history-desc">'LAPS-GCSF' 美 스펙트럼사와 공동개발 및 상업화 계약</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2013">2013</time>
-                        <p class="history-desc">
-                          국내 개량신약 최초 미국 FDA 승인 및 미국 출시
-                          '에소메졸'
-                        </p>
+                        <p class="history-desc">국내 개량신약 최초 미국 FDA 승인 및 미국 출시 '에소메졸'</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2014">2014</time>
-                        <p class="history-desc">
-                          '트리약손' 국내 최초 유럽 4개국 시판 허가
-                        </p>
+                        <p class="history-desc">'트리약손' 국내 최초 유럽 4개국 시판 허가</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2015">2015</time>
-                        <p class="history-desc">
-                          한국 사상 최대규모 릴레이 기술수출
-                        </p>
+                        <p class="history-desc">한국 사상 최대규모 릴레이 기술수출</p>
                       </li>
                     </ul>
                   </div>
@@ -2342,8 +2610,7 @@
                       width="1000"
                       height="510"
                       loading="lazy"
-                      decoding="async"
-                    />
+                      decoding="async" />
                   </figure>
                 </li>
 
@@ -2353,28 +2620,19 @@
                     <ul class="history-events">
                       <li>
                         <time class="history-year" datetime="2016">2016</time>
-                        <p class="history-desc">
-                          차세대 RAF 저해제, Roche 제넨텍 기술수출
-                        </p>
+                        <p class="history-desc">차세대 RAF 저해제, Roche 제넨텍 기술수출</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2017">2017</time>
-                        <p class="history-desc">
-                          '에소메졸' 국내 제약회사 최초 미국약전(USP) 등재
-                        </p>
+                        <p class="history-desc">'에소메졸' 국내 제약회사 최초 미국약전(USP) 등재</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2018">2018</time>
-                        <p class="history-desc">
-                          'Glucagon Analog', '오락솔' 차세대 AML 치료제 美
-                          희귀의약품 지정
-                        </p>
+                        <p class="history-desc">'Glucagon Analog', '오락솔' 차세대 AML 치료제 美 희귀의약품 지정</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2019">2019</time>
-                        <p class="history-desc">
-                          최근 10년간 처방실적 최다 4조 4,176억원
-                        </p>
+                        <p class="history-desc">최근 10년간 처방실적 최다 4조 4,176억원</p>
                       </li>
                     </ul>
                   </div>
@@ -2385,69 +2643,48 @@
                       width="940"
                       height="470"
                       loading="lazy"
-                      decoding="async"
-                    />
+                      decoding="async" />
                   </figure>
                 </li>
 
                 <li class="history-item">
                   <h3 class="history-period">2021~2026</h3>
                   <div class="history-info">
-                    <p class="history-slogan">
-                      하지만 아직, 가야 할 길이 더 남아 있습니다.
-                    </p>
+                    <p class="history-slogan">하지만 아직, 가야 할 길이 더 남아 있습니다.</p>
                     <ul class="history-events">
                       <li>
                         <time class="history-year" datetime="2021">2021</time>
-                        <p class="history-desc">
-                          '로수젯', 국내사 개발 처방의약품 매출 1위 달성
-                        </p>
+                        <p class="history-desc">'로수젯', 국내사 개발 처방의약품 매출 1위 달성</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2022">2022</time>
                         <p class="history-desc">
-                          <span
-                            >'롤론티스' 한국 최초 FDA 허가 받은 바이오신약
-                            등재</span
-                          ><span
-                            >'로수젯 RACING 연구' 세계 최고 권위 의학저널
-                            'LANCET' 등재</span
-                          >
+                          <span>'롤론티스' 한국 최초 FDA 허가 받은 바이오신약 등재</span>
+                          <span>'로수젯 RACING 연구' 세계 최고 권위 의학저널 'LANCET' 등재</span>
                         </p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2023">2023</time>
-                        <p class="history-desc">
-                          비만 프로젝트 'H.O.P' 프로젝트 가동
-                        </p>
+                        <p class="history-desc">비만 프로젝트 'H.O.P' 프로젝트 가동</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2024">2024</time>
-                        <p class="history-desc">
-                          근손실 한계 뛰어넘은 신개념 비만 신약 'HM17321' 발표
-                        </p>
+                        <p class="history-desc">근손실 한계 뛰어넘은 신개념 비만 신약 'HM17321' 발표</p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2025">2025</time>
                         <p class="history-desc">
-                          <span
-                            >'로수젯' 한국 전문의약품 시장 1위 품목 등록</span
-                          ><span>한미약품 8년 연속 원외처방 1위</span
-                          ><span
-                            >미국암연구학회(AACR)서 국내 최다 11개 연구 성과
-                            발표</span
-                          ><span
-                            >한미사이언스 약국화장품 'EGF크림' 27만개 완판</span
-                          >
+                          <span>'로수젯' 한국 전문의약품 시장 1위 품목 등록</span>
+                          <span>한미약품 8년 연속 원외처방 1위</span>
+                          <span>미국암연구학회(AACR)서 국내 최다 11개 연구 성과 발표</span>
+                          <span>한미사이언스 약국화장품 'EGF크림' 27만개 완판</span>
                         </p>
                       </li>
                       <li>
                         <time class="history-year" datetime="2026">2026</time>
                         <p class="history-desc">
-                          <span>희귀질환치료제 'LAPS-GLP2' 릴리 기술수출</span
-                          ><span
-                            >한미 '완전두유-케어미' 국제 우수 미각상 수상</span
-                          >
+                          <span>희귀질환치료제 'LAPS-GLP2' 릴리 기술수출</span>
+                          <span>한미 '완전두유-케어미' 국제 우수 미각상 수상</span>
                         </p>
                       </li>
                     </ul>
@@ -2459,8 +2696,7 @@
                       width="746"
                       height="535"
                       loading="lazy"
-                      decoding="async"
-                    />
+                      decoding="async" />
                   </figure>
                 </li>
               </ol>
@@ -2469,19 +2705,12 @@
               <div class="history-end">
                 <p class="history-num">
                   <span class="sr-only">창립 100주년</span>
-                  <span aria-hidden="true"
-                    >100<span class="history-th">th</span></span
-                  >
+                  <span aria-hidden="true">100<span class="history-th">th</span></span>
                 </p>
-                <p class="history-end-lead">
-                  한계를 넘을 때마다, 건강한 미래는 가까워졌습니다. 한계를 넘는
-                  일, 우리에게는 꽤 익숙하니까.
-                </p>
+                <p class="history-end-lead">한계를 넘을 때마다, 건강한 미래는 가까워졌습니다. 한계를 넘는 일, 우리에게는 꽤 익숙하니까.</p>
                 <p class="history-end-strong">
                   <span>수많은 도전이 오늘의 한미를 만들었습니다.</span>
-                  <span
-                    >이제 또 다른 가능성을 향해 당신과 함께 나아갑니다.</span
-                  >
+                  <span>이제 또 다른 가능성을 향해 당신과 함께 나아갑니다.</span>
                 </p>
               </div>
             </div>
@@ -2495,27 +2724,21 @@
           id="history-toggle"
           aria-expanded="false"
           aria-controls="history-clip"
-          hidden
-        >
-          <svg
-            class="history-toggle-icon"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
+          hidden>
+          <svg class="history-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M6 11l6-6 6 6M6 18l6-6 6 6"
               stroke="currentColor"
               stroke-width="1.6"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+              stroke-linejoin="round" />
           </svg>
           <span class="history-toggle-text">펼치기</span>
         </button>
       </section>
 
       <!-- ===== Work : 직무소개 (#history 섹션 바로 다음) ===== -->
+      <!-- prettier-ignore -->
       <section class="main-work" id="work" aria-labelledby="work-title">
         <div class="work-deco" aria-hidden="true">
           <img
@@ -2525,8 +2748,7 @@
             width="540"
             height="460"
             loading="lazy"
-            decoding="async"
-          />
+            decoding="async" />
           <img
             class="work-bottle"
             src="./images/con3_bottle.png"
@@ -2534,8 +2756,7 @@
             width="440"
             height="700"
             loading="lazy"
-            decoding="async"
-          />
+            decoding="async" />
         </div>
 
         <div class="work-inner">
@@ -2548,16 +2769,10 @@
                 width="220"
                 height="150"
                 loading="lazy"
-                decoding="async"
-              />
-              <h2 class="work-title" id="work-title">
-                한미에서는 어떤 일을 할까요?
-              </h2>
+                decoding="async" />
+              <h2 class="work-title" id="work-title">한미에서는 어떤 일을 할까요?</h2>
             </div>
-            <p class="work-sub">
-              일의 보람부터 성장의 순간까지, 먼저 경험한 현직자들이 솔직하게
-              들려드립니다.
-            </p>
+            <p class="work-sub">일의 보람부터 성장의 순간까지, 먼저 경험한 현직자들이 솔직하게 들려드립니다.</p>
           </header>
 
           <ul class="work-list">
@@ -2570,8 +2785,7 @@
                     width="1100"
                     height="706"
                     loading="lazy"
-                    decoding="async"
-                  />
+                    decoding="async" />
                 </figure>
                 <p class="work-desc">
                   <span>정밀한 시험과 분석으로 의약품의 품질을 확인해</span>
@@ -2589,8 +2803,7 @@
                         stroke="currentColor"
                         stroke-width="1.6"
                         stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
+                        stroke-linejoin="round" />
                     </svg>
                   </span>
                 </div>
@@ -2606,14 +2819,11 @@
                     width="1100"
                     height="706"
                     loading="lazy"
-                    decoding="async"
-                  />
+                    decoding="async" />
                 </figure>
                 <p class="work-desc">
                   <span>신약 후보물질의 가능성을 과학적으로 검증해</span>
-                  <span
-                    >새로운 치료제가 환자에게 향하는 첫걸음을 만듭니다.</span
-                  >
+                  <span>새로운 치료제가 환자에게 향하는 첫걸음을 만듭니다.</span>
                 </p>
                 <div class="work-info">
                   <p class="work-meta">
@@ -2627,8 +2837,7 @@
                         stroke="currentColor"
                         stroke-width="1.6"
                         stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
+                        stroke-linejoin="round" />
                     </svg>
                   </span>
                 </div>
@@ -2641,8 +2850,179 @@
           </div>
         </div>
       </section>
+
+      <!-- ===== Innovation : 성장 및 혁신 소식 (#work 섹션 바로 다음) ===== -->
+      <!-- prettier-ignore -->
+      <section class="innovation" id="innovation" aria-labelledby="innovation-title">
+        <div class="innovation-inner">
+          <header class="innovation-head">
+            <h2 class="innovation-title" id="innovation-title">
+              <span>당신의 가능성,</span>
+              <span>한미그룹에서 더 크게 성장합니다</span>
+            </h2>
+            <p class="innovation-sub">연구와 혁신으로 성장하며 글로벌 제약/바이오 기업을 향해 나아갑니다.</p>
+          </header>
+
+          <div class="innovation-card">
+            <!-- 장식 -->
+            <img
+              class="innovation-deco innovation-formula"
+              src="images/inno_chemical.png"
+              alt=""
+              aria-hidden="true"
+              width="702"
+              height="208"
+              loading="lazy"
+              decoding="async" />
+            <img
+              class="innovation-deco innovation-atom"
+              src="images/inno_monocule1.png"
+              alt=""
+              aria-hidden="true"
+              width="359"
+              height="359"
+              loading="lazy"
+              decoding="async" />
+            <img
+              class="innovation-deco innovation-molecule"
+              src="images/inno_monocule2.png"
+              alt=""
+              aria-hidden="true"
+              width="359"
+              height="383"
+              loading="lazy"
+              decoding="async" />
+
+            <ul class="innovation-list">
+              <li class="innovation-item innovation-item--red">
+                <a class="bubble bubble--red" href="#news-1">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">한미약품, 상반기 누적 매출 8,602억원…2분기 영업이익 117% 증가</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--white">
+                <a class="bubble bubble--white" href="#news-2">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">“사업형 지주사 경쟁력 입증”…한미사이언스, 2분기 영업이익 71%↑</span>
+                  <span class="bubble-line">2분기 매출 3,679억원…상반기 누적 매출 7,216억원 돌파</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--red">
+                <a class="bubble bubble--red" href="#news-3">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">한미약품, 로슈 제넨텍에 비만신약 기술수출…최대 3조 2,000억 규모</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--white">
+                <a class="bubble bubble--white" href="#news-4">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">“UCN2 이어 또…” 한미약품, 두 번째 근육 증가 비만신약 공개</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--red">
+                <a class="bubble bubble--red" href="#news-5">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">명품 반열 오른 한미 ‘로수젯’…압도적 데이터 경쟁력으로 시장 석권</span>
+                  <span class="bubble-line">2년 연속 국내사 개발 전문의약품 시장 ‘1위’…올해 상반기 누적 처방액도 선두</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--white">
+                <a class="bubble bubble--white" href="#news-6">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">“비만 넘어 항암으로 혁신 확장”…한미, AACR서 차세대 신약 대거 공개</span>
+                </a>
+              </li>
+
+              <li class="innovation-item innovation-item--red">
+                <a class="bubble bubble--red" href="#news-7">
+                  <svg class="bubble-bg" aria-hidden="true" focusable="false">
+                    <rect width="100%" height="100%" rx="20" ry="20" />
+                  </svg>
+                  <svg
+                    class="bubble-tail"
+                    viewBox="0 0 32 20"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false">
+                    <path d="M32 0H12C12 8 9 15 0 20H32Z" />
+                  </svg>
+                  <span class="bubble-line">한미 완전두유·케어미, 영양에 ‘맛’까지 인정…국제 우수 미각상 수상</span>
+                </a>
+              </li>
+            </ul>
+
+            <p class="innovation-hint">말풍선을 클릭해서 기사를 확인해 보세요.</p>
+          </div>
+        </div>
+      </section>
     </main>
 
+    <!-- prettier-ignore -->
     <footer class="footer">
       <!-- 하단 푸터 콘텐츠 영역 -->
     </footer>
