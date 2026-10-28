@@ -767,14 +767,14 @@
   /* Decoration (Desktop only: 좌표는 섹션 전체 크기 기준 %) */
   .history-deco { position: absolute; inset: 0; pointer-events: none; }
   .history-deco img { position: absolute; display: block; height: auto; max-width: none; }
-  .history-star      { width: min(8.6%, 124px);  left: 84%;   top: 4.7%; }
-  .history-beaker    { width: min(8%, 116px);    left: 6.3%;  top: 17.4%; }
+  .history-star      { width: max(13%, 124px);  left: 84%;   top: 4.7%; }
+  .history-beaker    { width: max(13%, 116px);    left: 6.3%;  top: 17.4%; }
   .history-hexblue   { width: min(16%, 230px);   left: 87.5%; top: 26.5%; }
-  .history-microscope{ width: min(7.5%, 108px);  left: 88%;   top: 31.4%; }
-  .history-hexgray   { width: min(12%, 172px);   left: -3%;   top: 47%; }
-  .history-molecule  { width: min(9.4%, 136px);  left: 90%;   top: 69%; }
+  .history-microscope{ width: max(12%, 108px);  left: 88%;   top: 31.4%; }
+  .history-hexgray   { width: max(15%, 172px);   left: -3%;   top: 47%; }
+  .history-molecule  { width: max(12%, 136px);  left: 90%;   top: 69%; }
   .history-shadow    { width: min(16%, 230px);   left: -2%;   top: 82.5%; }
-  .history-char      { width: min(9.5%, 137px);  left: 4.9%;  top: 77%; }
+  .history-char      { width: max(12%, 137px);  left: 4.9%;  top: 77%; }
 
   /* Toggle button */
   .history-toggle {
@@ -915,6 +915,255 @@
     .history-fig5 { --h-fig-w: 58%; }
 
     .history-toggle { font-size: 14px; line-height: 20px; }
+  }
+
+  /* ===== Work (직무소개) ===== */
+  .main-work {
+    /* 디바이스별 차이는 아래 변수값만 교체 (Tablet / Mobile 미디어쿼리 참고) */
+    --w-pt: clamp(150px, 13.2vw, 190px);
+    --w-pb: clamp(70px, 6.9vw, 100px);
+    --w-side: clamp(28px, 4vw, 58px);
+
+    --w-logo-w: 100px;
+    --w-logo-x: -40px;         /* 타이틀 좌측 기준 로고 위치 */
+    --w-logo-y: -56px;
+    --w-title: clamp(40px, 3.61vw, 52px);
+    --w-title-lh: 1.3;
+    --w-sub: clamp(16px, 1.39vw, 20px);
+    --w-sub-gap: 28px;         /* 타이틀 ~ 서브카피 */
+    --w-head-gap: clamp(52px, 5.5vw, 80px);  /* 서브카피 ~ 카드 */
+
+    --w-gap: clamp(28px, 4.1vw, 60px);       /* 카드 사이 간격 */
+    --w-card-pad: clamp(24px, 2.78vw, 40px);
+    --w-card-r: 32px;
+    --w-photo-r: 28px;
+    --w-desc: clamp(15px, 1.39vw, 20px);
+    --w-desc-lh: 1.6;
+    --w-desc-gap: 32px;        /* 사진 ~ 설명 */
+    --w-info-gap: 24px;        /* 설명 ~ 부서/이름 */
+    --w-meta: clamp(13px, 1.18vw, 17px);
+    --w-arrow: clamp(32px, 2.78vw, 40px);
+    --w-cta-gap: clamp(56px, 6.1vw, 88px);
+    --w-cta-w: 328px;
+
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: var(--w-pt) 0 var(--w-pb);
+    background: linear-gradient(180deg, #FEF5F2 0%, #FEF5F2 80%, #FFEFE8 100%);
+  }
+  .main-work::after {   /* 우측 하단 은은한 복숭아빛 글로우 */
+    content: "";
+    position: absolute;
+    right: -10%; bottom: -12%;
+    z-index: -1;
+    width: 60%; height: 40%;
+    background: radial-gradient(50% 50% at 50% 50%, rgba(255, 150, 100, 0.14) 0%, rgba(255, 150, 100, 0) 100%);
+    pointer-events: none;
+  }
+
+  .work-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--w-side);
+  }
+
+  /* Head */
+  .work-head { text-align: center; }
+  .work-title-wrap { position: relative; width: fit-content; max-width: 100%; margin: 0 auto; }
+  .work-logo {
+    position: absolute;
+    left: var(--w-logo-x);
+    top: var(--w-logo-y);
+    display: block;
+    width: var(--w-logo-w);
+    height: auto;
+    pointer-events: none;
+  }
+  .work-title {
+    position: relative;
+    font-size: var(--w-title);
+    font-weight: 800;
+    line-height: var(--w-title-lh);
+    letter-spacing: -0.04em;
+  }
+  .work-sub {
+    margin-top: var(--w-sub-gap);
+    font-size: var(--w-sub);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.03em;
+  }
+
+  /* Cards */
+  .work-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--w-gap);
+    margin-top: var(--w-head-gap);
+  }
+  .work-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--w-card-pad);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: var(--w-card-r);
+    background: #FFF9F7;
+    box-shadow: 0 8px 32px rgba(255, 93, 50, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .work-card:hover, .work-card:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(255, 93, 50, 0.16);
+  }
+  .work-card:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+  .work-photo {
+    margin: 0;
+    aspect-ratio: 382 / 245;
+    overflow: hidden;
+    border-radius: var(--w-photo-r);
+  }
+  .work-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  .work-desc {
+    margin-top: var(--w-desc-gap);
+    font-size: var(--w-desc);
+    font-weight: 700;
+    line-height: var(--w-desc-lh);
+    letter-spacing: -0.04em;
+  }
+  .work-desc span { display: block; }
+
+  .work-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: var(--w-info-gap);
+  }
+  .work-meta {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    font-size: var(--w-meta);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    color: #333;
+  }
+  .work-name::before {    /* 부서 | 이름 구분선 */
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 0.8em;
+    margin: 0 0.8em;
+    background: #999;
+    vertical-align: -0.05em;
+  }
+  .work-arrow {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--w-arrow);
+    height: var(--w-arrow);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--red-light) 0%, #F6B9A0 100%);
+    color: var(--white);
+    transition: background var(--transition), transform 0.3s ease;
+  }
+  .work-arrow svg { width: 55%; height: 55%; }
+  .work-card:hover .work-arrow,
+  .work-card:focus-visible .work-arrow {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-light) 100%);
+    transform: translateX(3px);
+  }
+
+  .work-cta { display: flex; justify-content: center; margin-top: var(--w-cta-gap); }
+  .main-work .work-cta .btn-cta { width: var(--w-cta-w); }
+
+  /* Decoration: 좌표는 섹션 전체 크기 기준 % */
+  .work-deco { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .work-deco img { position: absolute; display: block; height: auto; max-width: none; }
+  .work-char   { width: 16.6%; right: 3.4%; top: 10%; }
+  .work-bottle { width: 10.8%; left: -1%; top: 68%; filter: blur(3px); }  /* 데스크탑 시안: 피사계 심도 */
+
+  /* ----- Tablet : 1024px 이하 (2열 유지, 수치만 축소) ----- */
+  @media (max-width: 1024px) {
+    .main-work {
+      --w-pt: 120px;
+      --w-pb: 140px;
+      --w-side: clamp(28px, 3.8vw, 40px);
+
+      --w-logo-w: 76px;
+      --w-logo-x: -80px;
+      --w-logo-y: -40px;
+      --w-title: clamp(30px, 3.9vw, 36px);
+      --w-sub: clamp(15px, 1.76vw, 18px);
+      --w-sub-gap: 22px;
+      --w-head-gap: 56px;
+
+      --w-gap: 16px;
+      --w-card-pad: 24px;
+      --w-card-r: 24px;
+      --w-photo-r: 22px;
+      --w-desc: clamp(13px, 1.56vw, 16px);
+      --w-desc-gap: 26px;
+      --w-info-gap: 20px;
+      --w-meta: clamp(12px, 1.37vw, 14px);
+      --w-arrow: 32px;
+      --w-cta-gap: 44px;
+      --w-cta-w: 302px;
+    }
+    .work-char   { width: 14.3%; right: 3.7%; top: 3%; }
+    .work-bottle { width: 11.7%; left: 8.8%; top: 72%; filter: none; }
+  }
+
+  /* ----- Mobile : 767px 이하 (1열) ----- */
+  @media (max-width: 767px) {
+    .main-work {
+      --w-pt: 108px;
+      --w-pb: 52px;
+      --w-side: 18px;
+
+      --w-logo-w: 72px;
+      --w-logo-x: -50px;
+      --w-logo-y: -40px;
+      --w-title: clamp(20px, 6.15vw, 28px);
+      --w-sub: clamp(13px, 3.85vw, 16px);
+      --w-sub-gap: 16px;
+      --w-head-gap: 32px;
+
+      --w-gap: 18px;
+      --w-card-pad: 20px;
+      --w-card-r: 24px;
+      --w-photo-r: 20px;
+      --w-desc: clamp(13px, 3.6vw, 15px);
+      --w-desc-lh: 1.55;
+      --w-desc-gap: 22px;
+      --w-info-gap: 18px;
+      --w-meta: clamp(12px, 3.3vw, 14px);
+      --w-arrow: 32px;
+      --w-cta-gap: 26px;
+      --w-cta-w: 214px;
+    }
+    .work-list { grid-template-columns: minmax(0, 1fr); }
+    .work-sub { max-width: 21em; margin-left: auto; margin-right: auto; }
+    .work-desc span { display: inline; }   /* 모바일은 자연 줄바꿈 */
+    .work-desc span + span::before { content: " "; }
+    .main-work .work-cta .btn-cta { height: 48px; padding: 0; font-size: 15px; line-height: 24px; }
+
+    .work-char   { width: 32%; right: 1%; top: 0; }
+    .work-bottle { display: none; }   /* 모바일 시안에 없음 */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-card, .work-arrow { transition: none; }
+    .work-card:hover, .work-card:focus-visible { transform: none; }
   }
 
 </style>
@@ -1145,6 +1394,72 @@
       <svg class="history-toggle-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 11l6-6 6 6M6 18l6-6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="history-toggle-text">펼치기</span>
     </button>
+  </section>
+
+  <!-- ===== Work : 직무소개 (#history 섹션 바로 다음) ===== -->
+  <section class="main-work" id="work" aria-labelledby="work-title">
+    <div class="work-deco" aria-hidden="true">
+      <img class="work-char" src="./images/con3_char.png" alt="" width="540" height="460" loading="lazy" decoding="async">
+      <img class="work-bottle" src="./images/con3_bottle.png" alt="" width="440" height="700" loading="lazy" decoding="async">
+    </div>
+
+    <div class="work-inner">
+      <header class="work-head">
+        <div class="work-title-wrap">
+          <img class="work-logo" src="./images/con3_logo.png" alt="Hanmi 한미약품 로고" width="220" height="150" loading="lazy" decoding="async">
+          <h2 class="work-title" id="work-title">한미에서는 어떤 일을 할까요?</h2>
+        </div>
+        <p class="work-sub">일의 보람부터 성장의 순간까지, 먼저 경험한 현직자들이 솔직하게 들려드립니다.</p>
+      </header>
+
+      <ul class="work-list">
+        <li class="work-item">
+          <a class="work-card" href="#work-quality">
+            <figure class="work-photo">
+              <img src="./images/con3_int1.png" alt="실험 장비가 늘어선 품질관리 연구실에서 주먹을 쥐어 보이며 웃고 있는 이건호 사원" width="1100" height="706" loading="lazy" decoding="async">
+            </figure>
+            <p class="work-desc">
+              <span>정밀한 시험과 분석으로 의약품의 품질을 확인해</span>
+              <span>안전하고 신뢰할 수 있는 의약품을 만들어갑니다.</span>
+            </p>
+            <div class="work-info">
+              <p class="work-meta">
+                <span class="work-dept">한미약품 품질관리</span>
+                <span class="work-name">이건호 사원</span>
+              </p>
+              <span class="work-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </a>
+        </li>
+
+        <li class="work-item">
+          <a class="work-card" href="#work-clinical">
+            <figure class="work-photo">
+              <img src="./images/con3_int2.png" alt="밝은 사무 공간의 가죽 소파에 앉아 미소 짓고 있는 박진하 연구원" width="1100" height="706" loading="lazy" decoding="async">
+            </figure>
+            <p class="work-desc">
+              <span>신약 후보물질의 가능성을 과학적으로 검증해</span>
+              <span>새로운 치료제가 환자에게 향하는 첫걸음을 만듭니다.</span>
+            </p>
+            <div class="work-info">
+              <p class="work-meta">
+                <span class="work-dept">한미약품 전임상연구</span>
+                <span class="work-name">박진하 연구원</span>
+              </p>
+              <span class="work-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <div class="work-cta">
+        <a href="#work-all" class="btn-cta">모든 현직자 알아가기!</a>
+      </div>
+    </div>
   </section>
 
 </main>
